@@ -1,0 +1,7 @@
+{
+  "name": "CampuConn",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
