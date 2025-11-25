@@ -1,0 +1,101 @@
+<ion-content [fullscreen]="true" class="register-page-content">
+  <div class="header-section ion-text-center">
+    
+    <!-- Logo/Image Section -->
+    <div class="logo-container">
+      <!-- NOTE: Replace 'assets/images/msu_logo.png' with your actual path -->
+      <img src="assets/images/LogoMinSU.jpg" alt="MSU Logo" class="app-logo">
+    </div>
+
+    <!-- Welcome Text -->
+    <h1 class="welcome-heading">Welcome, Future Student!</h1>
+    <p class="subtitle">Register to access campus navigation and services.</p>
+  </div>
+  
+  <div class="form-container">
+    
+    <!-- Registration Form -->
+    <ion-list lines="none" class="register-form">
+      
+      <!-- First Name -->
+      <ion-label position="stacked" class="input-label">First Name</ion-label>
+      <ion-item class="custom-input-item">
+        <ion-input type="text" placeholder="Enter your first name" [(ngModel)]="firstName"></ion-input>
+      </ion-item>
+      
+      <!-- Last Name -->
+      <ion-label position="stacked" class="input-label">Last Name</ion-label>
+      <ion-item class="custom-input-item">
+        <ion-input type="text" placeholder="Enter your last name" [(ngModel)]="lastName"></ion-input>
+      </ion-item>
+      
+      <!-- Student ID Number -->
+      <ion-label position="stacked" class="input-label">Student ID Number</ion-label>
+      <ion-item class="custom-input-item">
+        <ion-input type="text" placeholder="Enter your student ID" [(ngModel)]="studentId"></ion-input>
+      </ion-item>
+
+      <!-- University Email Address -->
+      <ion-label position="stacked" class="input-label">University Email Address</ion-label>
+      <ion-item class="custom-input-item email-input-item">
+        <!-- Input for the prefix -->
+        <ion-input type="email" placeholder="your-email" [(ngModel)]="universityEmail" [ngModelOptions]="{standalone: true}" class="email-prefix-input"></ion-input>
+        <!-- Static suffix text -->
+        <ion-text class="email-suffix-text">@msu.edu.ph</ion-text>
+      </ion-item>
+      
+      <!-- Password -->
+      <ion-label position="stacked" class="input-label">Password</ion-label>
+      <ion-item class="custom-input-item">
+        <ion-input [type]="passwordType" placeholder="Create a password" [(ngModel)]="password"></ion-input>
+        <ion-icon 
+          slot="end" 
+          [name]="passwordToggleIcon" 
+          (click)="togglePasswordVisibility('password')"
+          class="password-toggle"
+        ></ion-icon>
+      </ion-item>
+      
+      <!-- Confirm Password -->
+      <ion-label position="stacked" class="input-label">Confirm Password</ion-label>
+      <ion-item class="custom-input-item" [class.mismatch-border]="showMismatchError">
+        <ion-input 
+          [type]="confirmPasswordType" 
+          placeholder="Confirm your password" 
+          [(ngModel)]="confirmPassword"
+          (ionChange)="checkPasswordMatch()"
+        ></ion-input>
+        <ion-icon 
+          slot="end" 
+          [name]="passwordToggleIcon" 
+          (click)="togglePasswordVisibility('confirm')"
+          class="password-toggle"
+        ></ion-icon>
+      </ion-item>
+      
+      <!-- Password Mismatch Error -->
+      <ion-text color="danger" *ngIf="showMismatchError" class="mismatch-text">
+        Passwords do not match.
+      </ion-text>
+
+    </ion-list>
+
+    <!-- Register Button -->
+    <ion-button 
+      expand="block" 
+      size="large" 
+      class="register-button" 
+      (click)="onRegister()"
+    >
+      Register
+    </ion-button>
+  </div>
+
+  <!-- Sign In Link -->
+  <div class="signin-footer ion-text-center">
+    <ion-text>Already have an account? </ion-text>
+    <ion-text color="primary" class="signin-link" (click)="onSignIn()">
+      Sign In
+    </ion-text>
+  </div>
+</ion-content>

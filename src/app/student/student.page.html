@@ -1,0 +1,32 @@
+<!-- ion-tabs should be the root component for a tabs-based page structure -->
+<ion-tabs>
+
+  <!-- This outlet is where the content for each tab will be displayed (e.g., dashboard, schedule) -->
+  <ion-router-outlet></ion-router-outlet>
+  
+  <!-- The tab bar is positioned at the bottom -->
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+    
+    <!-- Each tab button corresponds to a route in your student-routing.module.ts -->
+    <ion-tab-button tab="dashboard" >
+      <ion-icon name="home" aria-hidden="true"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="maps" >
+      <ion-icon name="map-outline" aria-hidden="true"></ion-icon>
+      <ion-label>Maps</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="announcements">
+      <ion-icon name="megaphone-outline" aria-hidden="true"></ion-icon>
+      <ion-label>Announcements</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

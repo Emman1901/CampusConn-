@@ -1,0 +1,144 @@
+/* --- Global Dashboard Styles --- */
+:host {
+  ion-content.admin-dashboard-content {
+    --background: #f4f5f8; // Light grey background for the content area
+  }
+
+  ion-header.admin-header {
+    ion-toolbar {
+      --background: #ffffff;
+      --color: #1e2023;
+      --border-color: #e0e0e0;
+    }
+    &::after {
+      content: none; // Removes the box-shadow from the header toolbar
+    }
+  }
+}
+
+/* --- Section Styling --- */
+.section-container {
+  padding: 0 16px 16px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 16px 4px 12px;
+}
+
+/* --- Summary Statistics Grid --- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Two columns
+  gap: 12px;
+  padding: 16px;
+}
+
+.summary-card {
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+
+  ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .icon-container {
+    font-size: 2rem;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.user-icon { background-color: rgba(52, 152, 219, 0.1); color: #3498db; }
+    &.signup-icon { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+    &.pending-icon { background-color: rgba(241, 196, 15, 0.1); color: #f1c40f; }
+    &.report-icon { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+  }
+
+  .stat-details {
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e2023;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+  }
+}
+
+/* --- Recent User Activity List --- */
+.user-list {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  ion-item {
+    --padding-start: 12px;
+    h2 {
+      font-weight: 600;
+      color: #333;
+    }
+    p {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    ion-avatar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  
+  &.active {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+  }
+  &.pending {
+    background-color: rgba(241, 196, 15, 0.15);
+    color: #d35400;
+  }
+}
+
+/* --- Chart Placeholder Card --- */
+.chart-card {
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  .chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: #b0b0b0;
+
+    ion-icon {
+      font-size: 4rem;
+    }
+    p {
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* --- Floating Action Button --- */
+ion-fab-button {
+  --background: #3880ff; // Ionic's primary color
+}

@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="dashboard-content">
+    
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Welcome back, MinSUan's! 👋</h1>
+      <p>Here's what's happening with your campus life today.</p>
+    </div>
+
+    <!-- Quick Actions / Services Grid -->
+    <div class="services-section">
+      <h2 class="section-title">Student Services</h2>
+      
+      <!-- DEBUG TEST BUTTON
+      <ion-button expand="block" color="warning" (click)="testClick()" style="margin-bottom: 15px;">
+        <ion-icon slot="start" name="bug-outline"></ion-icon>
+        Test Click (Debug)
+      </ion-button> -->
+
+      <div class="services-grid">
+        
+        <!-- My Grades Card -->
+        <ion-card class="service-card" button (click)="openGradesWebsite()">
+          <div class="card-icon-section grades-bg">
+            <ion-icon name="school-outline"></ion-icon>
+          </div>
+          <ion-card-content>
+            <h3>My Grades</h3>
+            <p>View your performance</p>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Emergency Contacts Card -->
+        <ion-card class="service-card emergency-card" button (click)="showEmergencyHotlines()">
+          <div class="card-icon-section emergency-bg">
+            <ion-icon name="call-outline"></ion-icon>
+          </div>
+          <ion-card-content>
+            <h3>Emergency Contacts</h3>
+            <p>Campus security info</p>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Schedule Card -->
+        <ion-card class="service-card" button>
+          <div class="card-icon-section schedule-bg">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <ion-card-content>
+            <h3>My Schedule</h3>
+            <p>View class schedule</p>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Library Card -->
+        <ion-card class="service-card" button>
+          <div class="card-icon-section library-bg">
+            <ion-icon name="library-outline"></ion-icon>
+          </div>
+          <ion-card-content>
+            <h3>Library</h3>
+            <p>Browse resources</p>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Emergency Hotlines Modal -->
+  <div *ngIf="isEmergencyModalVisible" class="emergency-modal-overlay" (click)="hideEmergencyHotlines()">
+    <div class="emergency-modal-content" (click)="$event.stopPropagation()">
+      <ion-button fill="clear" class="close-button" (click)="hideEmergencyHotlines()">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+      
+      <div class="hotline-navigation">
+        <ion-button 
+          fill="clear" 
+          class="nav-button prev-button" 
+          (click)="previousHotlineImage()"
+          [disabled]="currentHotlineIndex === 0"
+        >
+          <ion-icon slot="icon-only" name="chevron-back-circle"></ion-icon>
+        </ion-button>
+
+        <img 
+          [src]="getCurrentHotlineImage()" 
+          alt="Emergency Hotlines" 
+          class="hotline-image"
+        >
+
+        <ion-button 
+          fill="clear" 
+          class="nav-button next-button" 
+          (click)="nextHotlineImage()"
+          [disabled]="currentHotlineIndex === hotlineImages.length - 1"
+        >
+          <ion-icon slot="icon-only" name="chevron-forward-circle"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="image-counter">
+        {{ currentHotlineIndex + 1 }} / {{ hotlineImages.length }}
+      </div>
+    </div>
+  </div>
+</ion-content>

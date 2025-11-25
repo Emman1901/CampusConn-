@@ -1,0 +1,133 @@
+// Side Menu Styling
+ion-menu {
+  --width: 280px;
+  
+  ion-content {
+    --background: linear-gradient(180deg, #7b6ba8 0%, #9b8ec1 100%);
+  }
+}
+
+// User Profile Section in Menu
+.user-profile-section {
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .user-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 5px 0;
+  }
+  
+  .user-role {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+}
+
+// Menu Items
+ion-list {
+  background: transparent;
+  padding: 10px 0;
+  
+  ion-item {
+    --background: transparent;
+    --color: rgba(255, 255, 255, 0.9);
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --inner-padding-end: 15px;
+    --min-height: 50px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    
+    ion-icon {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    &:hover {
+      --background: rgba(255, 255, 255, 0.1);
+    }
+    
+    &.active-menu-item {
+      --background: rgba(255, 255, 255, 0.2);
+      --color: #fff;
+      font-weight: 600;
+      
+      ion-icon {
+        color: #fff;
+      }
+    }
+  }
+  
+  .menu-divider {
+    --background: transparent;
+    --border-color: rgba(255, 255, 255, 0.2);
+    margin: 15px 0;
+  }
+  
+  .logout-item {
+    margin-top: 10px;
+    
+    ion-icon {
+      color: #ff6b6b;
+    }
+    
+    ion-label {
+      color: #ff6b6b;
+    }
+    
+    &:hover {
+      --background: rgba(255, 107, 107, 0.1);
+    }
+  }
+}
+
+// Menu Footer
+.menu-footer {
+  background: rgba(0, 0, 0, 0.2);
+  
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0;
+  }
+  
+  .footer-content {
+    text-align: center;
+    padding: 10px;
+    
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .version {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 5px;
+    }
+  }
+}

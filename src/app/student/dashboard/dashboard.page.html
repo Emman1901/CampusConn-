@@ -1,0 +1,129 @@
+<!-- This ion-content is now the primary scrollable container for the dashboard tab -->
+<ion-content [fullscreen]="true">
+  <!-- All dashboard content is placed directly inside the ion-content -->
+  <div class="main-dashboard-content">
+    <!-- Header Section: User Info & Notification Bell -->
+    <div class="header-section">
+      <div class="user-info">
+        <div class="avatar-container">
+          <img
+            src="assets/images/reading-book.png"
+            alt="User Avatar"
+            class="user-avatar"
+          />
+        </div>
+        <div class="user-details">
+          <h2 class="user-name">Hello, Juan</h2>
+          <p class="app-subtitle">Campus Connect+</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <ion-button fill="clear" class="notification-button">
+          <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="logout-button" routerLink="/login">
+          <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Student Services Section: This white card contains the main grid -->
+    <div class="services-section">
+      <h2 class="section-title">Student Services</h2>
+
+      <!-- DEBUG TEST BUTTON -->
+      <ion-button expand="block" color="warning" (click)="testClick()" style="margin-bottom: 15px;">
+        <ion-icon slot="start" name="bug-outline"></ion-icon>
+        Test Click (Debug)
+      </ion-button>
+
+      <!-- Grid layout for service cards -->
+      <div class="services-grid">
+        <!-- My Grades: Opens MinSU grades portal -->
+        <div class="service-card">
+          <div class="card-image grades-gradient"></div>
+          <div class="card-content">
+            <h3 class="card-title">My Grades</h3>
+            <p class="card-description">View your performance</p>
+            <ion-button 
+              expand="block" 
+              class="card-action-button grades-button"
+              (click)="openGradesWebsite()"
+            >
+              <ion-icon slot="start" name="open-outline"></ion-icon>
+              View Grades
+            </ion-button>
+          </div>
+        </div>
+
+        <!-- Emergency Contacts: Shows hotline images -->
+        <div class="service-card emergency-card">
+          <div class="card-image emergency-gradient"></div>
+          <div class="card-content">
+            <h3 class="card-title emergency-title">Emergency Contacts</h3>
+            <p class="card-description emergency-description">
+              Campus security info
+            </p>
+            <ion-button 
+              expand="block" 
+              class="card-action-button emergency-button"
+              (click)="showEmergencyHotlines()"
+            >
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              View Hotlines
+            </ion-button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+    Emergency Hotline Modal 
+    This entire section will appear as an overlay when 'isEmergencyModalVisible' is true.
+  -->
+  <div *ngIf="isEmergencyModalVisible" class="emergency-modal-overlay" (click)="hideEmergencyHotlines()">
+    <div class="emergency-modal-content" (click)="$event.stopPropagation()">
+      <!-- Close button for the modal -->
+      <ion-button fill="clear" class="close-button" (click)="hideEmergencyHotlines()">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+      
+      <!-- Navigation buttons container -->
+      <div class="hotline-navigation">
+        <!-- Previous button -->
+        <ion-button 
+          fill="clear" 
+          class="nav-button prev-button" 
+          (click)="previousHotlineImage()"
+          [disabled]="currentHotlineIndex === 0"
+        >
+          <ion-icon slot="icon-only" name="chevron-back-circle"></ion-icon>
+        </ion-button>
+
+        <!-- Emergency hotline image -->
+        <img 
+          [src]="getCurrentHotlineImage()" 
+          alt="Emergency Hotlines" 
+          class="hotline-image"
+        >
+
+        <!-- Next button -->
+        <ion-button 
+          fill="clear" 
+          class="nav-button next-button" 
+          (click)="nextHotlineImage()"
+          [disabled]="currentHotlineIndex === hotlineImages.length - 1"
+        >
+          <ion-icon slot="icon-only" name="chevron-forward-circle"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- Image counter indicator -->
+      <div class="image-counter">
+        {{ currentHotlineIndex + 1 }} / {{ hotlineImages.length }}
+      </div>
+    </div>
+  </div>
+</ion-content>
