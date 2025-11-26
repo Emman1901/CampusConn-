@@ -1,0 +1,187 @@
+ion-content {
+  --background: #f5f5f5;
+}
+
+.admin-announcements-container {
+  padding: 15px;
+  padding-bottom: 40px;
+}
+
+// Statistics Row
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .stat-card {
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    ion-card-content {
+      padding: 15px;
+
+      .stat-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        ion-icon {
+          font-size: 2.5rem;
+        }
+
+        div {
+          h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+          }
+
+          p {
+            font-size: 0.85rem;
+            color: #999;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Quick Actions
+.quick-actions {
+  margin-bottom: 25px;
+
+  ion-button {
+    --border-radius: 12px;
+    height: 50px;
+    font-weight: 600;
+  }
+}
+
+// Announcements List
+.announcements-list {
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 15px 0;
+  }
+
+  .admin-announcement-card {
+    margin: 0 0 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &.inactive {
+      opacity: 0.6;
+      background: #f9f9f9;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    ion-card-header {
+      .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+
+        > div {
+          flex: 1;
+        }
+
+        ion-chip {
+          margin: 0 5px 8px 0;
+          height: 26px;
+          font-size: 0.8rem;
+        }
+
+        ion-card-title {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: #333;
+          margin: 10px 0 5px 0;
+        }
+
+        ion-card-subtitle {
+          font-size: 0.85rem;
+          color: #666;
+        }
+
+        ion-toggle {
+          --handle-width: 26px;
+          --handle-height: 26px;
+        }
+      }
+    }
+
+    ion-card-content {
+      .content-preview {
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.5;
+        margin: 0 0 15px 0;
+        max-height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+
+        ion-button {
+          flex: 1;
+          margin: 0;
+          --border-radius: 8px;
+        }
+      }
+    }
+  }
+}
+
+// Form Alert Styling
+.announcement-form-alert {
+  .alert-wrapper {
+    border-radius: 15px;
+    max-width: 500px;
+  }
+
+  .alert-input {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 8px 0;
+  }
+
+  .alert-button {
+    font-weight: 600;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+
+    .stat-card {
+      ion-card-content .stat-content {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-announcements-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}

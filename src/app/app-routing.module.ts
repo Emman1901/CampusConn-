@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'portal',
     loadChildren: () => import('./portal/portal.module').then( m => m.PortalPageModule)
   },
+  {
+    path: 'announcements',
+    loadChildren: () => import('./admin/announcements/announcements.module').then( m => m.AnnouncementsPageModule)
+  },
   
   
 ];

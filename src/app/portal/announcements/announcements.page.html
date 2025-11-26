@@ -1,13 +1,108 @@
-<ion-header [translucent]="true">
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Announcements</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshAnnouncements()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Category Filter Chips -->
   <ion-toolbar>
-    <ion-title>announcements</ion-title>
+    <ion-segment [(ngModel)]="selectedCategory" (ionChange)="filterByCategory()">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="general">
+        <ion-label>General</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="academic">
+        <ion-label>Academic</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="event">
+        <ion-label>Events</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="urgent">
+        <ion-label>Urgent</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">announcements</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="announcements-container">
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredAnnouncements.length === 0">
+      <ion-icon name="megaphone-outline"></ion-icon>
+      <h2>No Announcements</h2>
+      <p>There are no announcements to display at this time.</p>
+    </div>
+
+    <!-- Announcements List -->
+    <ion-card 
+      *ngFor="let announcement of filteredAnnouncements" 
+      class="announcement-card"
+      [class.urgent]="announcement.priority === 'urgent'"
+      [class.high]="announcement.priority === 'high'"
+      button
+      (click)="viewAnnouncement(announcement)"
+    >
+      <!-- Priority Badge -->
+      <div class="priority-badge" [attr.data-priority]="announcement.priority">
+        <ion-icon 
+          [name]="getPriorityIcon(announcement.priority)"
+          [color]="getPriorityColor(announcement.priority)"
+        ></ion-icon>
+      </div>
+
+      <ion-card-header>
+        <div class="card-header-content">
+          <div>
+            <ion-chip [color]="getCategoryColor(announcement.category)" class="category-chip">
+              <ion-icon [name]="getCategoryIcon(announcement.category)"></ion-icon>
+              <ion-label>{{ announcement.category | titlecase }}</ion-label>
+            </ion-chip>
+            <ion-card-title>{{ announcement.title }}</ion-card-title>
+            <ion-card-subtitle>
+              <ion-icon name="person-circle-outline"></ion-icon>
+              {{ announcement.postedBy }} • 
+              <ion-icon name="calendar-outline"></ion-icon>
+              {{ announcement.postedDate | date:'MMM d, y' }}
+            </ion-card-subtitle>
+          </div>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p class="announcement-preview">
+          {{ announcement.content.length > 150 ? (announcement.content | slice:0:150) + '...' : announcement.content }}
+        </p>
+
+        <div class="card-footer">
+          <div class="footer-info">
+            <ion-icon name="eye-outline"></ion-icon>
+            <span>{{ announcement.views }} views</span>
+          </div>
+          <ion-button fill="clear" size="small">
+            Read More
+            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <!-- Floating Action Button (Optional - for quick access) -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="scrollToTop()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

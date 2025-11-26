@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Manage Announcements</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addNewAnnouncement()">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="admin-announcements-container">
+
+    <!-- Statistics Cards -->
+    <div class="stats-row">
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="megaphone" color="primary"></ion-icon>
+            <div>
+              <h3>{{ totalAnnouncements }}</h3>
+              <p>Total</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon>
+            <div>
+              <h3>{{ activeAnnouncements }}</h3>
+              <p>Active</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="eye" color="secondary"></ion-icon>
+            <div>
+              <h3>{{ totalViews }}</h3>
+              <p>Views</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <ion-button expand="block" (click)="addNewAnnouncement()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Create New Announcement
+      </ion-button>
+    </div>
+
+    <!-- Announcements List -->
+    <div class="announcements-list">
+      <h2 class="section-title">All Announcements</h2>
+
+      <ion-card 
+        *ngFor="let announcement of announcements" 
+        class="admin-announcement-card"
+        [class.inactive]="!announcement.isActive"
+      >
+        <ion-card-header>
+          <div class="card-header-row">
+            <div>
+              <ion-chip [color]="getCategoryColor(announcement.category)" size="small">
+                <ion-label>{{ announcement.category | titlecase }}</ion-label>
+              </ion-chip>
+              <ion-chip [color]="getPriorityColor(announcement.priority)" size="small">
+                <ion-label>{{ announcement.priority | titlecase }}</ion-label>
+              </ion-chip>
+              <ion-card-title>{{ announcement.title }}</ion-card-title>
+              <ion-card-subtitle>
+                Posted: {{ announcement.postedDate | date:'MMM d, y' }} • 
+                Views: {{ announcement.views }}
+              </ion-card-subtitle>
+            </div>
+            <ion-toggle 
+              [(ngModel)]="announcement.isActive" 
+              (ionChange)="toggleStatus(announcement.id)"
+              color="success"
+            ></ion-toggle>
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p class="content-preview">{{ announcement.content }}</p>
+          
+          <div class="card-actions">
+            <ion-button fill="outline" size="small" (click)="editAnnouncement(announcement)">
+              <ion-icon slot="start" name="create-outline"></ion-icon>
+              Edit
+            </ion-button>
+            <ion-button fill="outline" size="small" color="danger" (click)="deleteAnnouncement(announcement)">
+              <ion-icon slot="start" name="trash-outline"></ion-icon>
+              Delete
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+  </div>
+</ion-content>
