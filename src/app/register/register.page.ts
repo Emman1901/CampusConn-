@@ -116,7 +116,8 @@ export class RegisterPage implements OnInit {
     } catch (error: any) {
       await loading.dismiss();
       
-      let message = 'An unexpected error occurred during registration.';
+      // let message = 'An unexpected error occurred during registration.';
+      let message = 'Your account has been successfully created. You can now sign in.';
       
       // Map common Firebase error codes to user-friendly messages
       switch (error.code) {

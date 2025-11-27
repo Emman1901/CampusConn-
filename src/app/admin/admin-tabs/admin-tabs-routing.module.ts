@@ -15,15 +15,16 @@ const routes: Routes = [
         path: 'announcements',
         loadChildren: () => import('../announcements/announcements.module').then(m => m.AnnouncementsPageModule)
       },
+      {
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
+      },
       
       // {
       //   path: 'users',
       //   loadChildren: () => import('../users/users.module').then(m => m.UsersPageModule)
       // },
-      // {
-      //   path: 'settings',
-      //   loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
-      // },
+      
       {
         // Redirect the base /admin path to the admin dashboard
         path: '',

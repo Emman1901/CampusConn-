@@ -2,25 +2,25 @@ ion-content {
   --background: #f5f5f5;
 }
 
-.profile-container {
+.settings-container {
   padding: 15px;
   padding-bottom: 40px;
   max-width: 800px;
   margin: 0 auto;
 }
 
-// Profile Header Card
-.profile-header-card {
-  background: linear-gradient(135deg, #7b6ba8 0%, #9b8ec1 100%);
+// Admin Profile Card
+.admin-profile-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(123, 107, 168, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   margin-bottom: 20px;
 
   ion-card-content {
     padding: 25px;
   }
 
-  .profile-header {
+  .admin-profile-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,10 +38,10 @@ ion-content {
 
     .avatar-container {
       position: relative;
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
 
-      .profile-avatar {
+      .admin-avatar {
         width: 100%;
         height: 100%;
         border-radius: 50%;
@@ -55,27 +55,27 @@ ion-content {
         bottom: 0;
         right: 0;
         --border-radius: 50%;
-        --padding-start: 10px;
-        --padding-end: 10px;
+        --padding-start: 8px;
+        --padding-end: 8px;
         --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
       }
     }
   }
 
-  .user-info-section {
+  .admin-info {
     flex: 1;
 
-    .user-name {
-      font-size: 1.8rem;
+    h1 {
+      font-size: 1.6rem;
       font-weight: 700;
       color: white;
       margin: 0 0 8px 0;
     }
 
-    .student-id {
-      font-size: 1rem;
+    .admin-role {
+      font-size: 0.95rem;
       color: rgba(255, 255, 255, 0.9);
       margin: 0 0 12px 0;
       display: flex;
@@ -88,11 +88,11 @@ ion-content {
       }
 
       ion-icon {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
     }
 
-    .course-chip {
+    ion-chip {
       --background: rgba(255, 255, 255, 0.2);
       color: white;
       font-weight: 600;
@@ -104,8 +104,8 @@ ion-content {
   }
 }
 
-// Info Section Cards
-.info-section-card {
+// Settings Section Cards
+.settings-section-card {
   margin-bottom: 15px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,7 @@ ion-content {
 
       ion-icon {
         font-size: 1.5rem;
-        color: #7b6ba8;
+        color: #667eea;
       }
     }
   }
@@ -139,15 +139,33 @@ ion-content {
         --inner-padding-end: 0;
         margin-bottom: 15px;
 
+        &:last-child {
+          margin-bottom: 0;
+        }
+
         ion-label {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: #666;
-          margin-bottom: 5px;
+          &[position="stacked"] {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+          }
+
+          h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+          }
+
+          p {
+            font-size: 0.85rem;
+            color: #999;
+            margin: 4px 0 0 0;
+          }
         }
 
         ion-input,
-        ion-textarea,
         ion-select {
           --background: #f9f9f9;
           --padding-start: 12px;
@@ -157,30 +175,31 @@ ion-content {
           font-size: 1rem;
           margin-top: 5px;
 
-          &[readonly] {
+          &[readonly],
+          &[disabled] {
             --background: #f5f5f5;
             opacity: 0.8;
           }
         }
 
-        ion-textarea {
-          --padding-top: 12px;
-          --padding-bottom: 12px;
+        ion-toggle {
+          --handle-width: 26px;
+          --handle-height: 26px;
         }
 
-        ion-select {
-          --padding-start: 12px;
-        }
+        &[button] {
+          cursor: pointer;
 
-        &[disabled] {
-          opacity: 0.6;
+          &:hover {
+            --background: rgba(0, 0, 0, 0.02);
+          }
         }
       }
     }
   }
 }
 
-// Last Updated Info
+// Last Updated
 .last-updated {
   text-align: center;
   padding: 15px;
@@ -208,27 +227,6 @@ ion-content {
     height: 50px;
     font-weight: 600;
     --border-radius: 12px;
-  }
-}
-
-// Loading State
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-  gap: 20px;
-
-  ion-spinner {
-    width: 50px;
-    height: 50px;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #999;
-    margin: 0;
   }
 }
 

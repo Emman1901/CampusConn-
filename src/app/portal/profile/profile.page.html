@@ -1,13 +1,324 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleEditMode()" *ngIf="!isEditMode">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="saveProfile()" *ngIf="isEditMode" color="success">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+      <ion-button (click)="cancelEdit()" *ngIf="isEditMode" color="danger">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="profile-container" *ngIf="userProfile">
+
+    <!-- Profile Header Card -->
+    <ion-card class="profile-header-card">
+      <ion-card-content>
+        <div class="profile-header">
+          <!-- Avatar Section -->
+          <div class="avatar-section">
+            <div class="avatar-container">
+              <img 
+                [src]="userProfile.profileImage || 'assets/images/default-avatar.png'" 
+                alt="Profile Picture"
+                class="profile-avatar"
+              />
+              <ion-button 
+                *ngIf="isEditMode" 
+                class="change-photo-btn" 
+                fill="solid" 
+                size="small"
+                (click)="changePhoto()"
+              >
+                <ion-icon name="camera" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+
+          <!-- User Info Section -->
+          <div class="user-info-section">
+            <h1 class="user-name">{{ userProfile.firstName }} {{ userProfile.lastName }}</h1>
+            <p class="student-id">
+              <ion-icon name="card-outline"></ion-icon>
+              {{ userProfile.studentId }}
+            </p>
+            <ion-chip color="primary" class="course-chip">
+              <ion-icon name="school"></ion-icon>
+              <ion-label>{{ userProfile.course }}</ion-label>
+            </ion-chip>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Personal Information Section -->
+    <ion-card class="info-section-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="person"></ion-icon>
+          Personal Information
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list lines="none">
+          <!-- First Name -->
+          <ion-item>
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.firstName" 
+              [readonly]="!isEditMode"
+              placeholder="Enter first name"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Last Name -->
+          <ion-item>
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.lastName" 
+              [readonly]="!isEditMode"
+              placeholder="Enter last name"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Email -->
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.email" 
+              [readonly]="!isEditMode"
+              type="email"
+              placeholder="Enter email"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Phone Number -->
+          <ion-item>
+            <ion-label position="stacked">Phone Number</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.phoneNumber" 
+              [readonly]="!isEditMode"
+              type="tel"
+              placeholder="Enter phone number"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Birth Date -->
+          <ion-item>
+            <ion-label position="stacked">Birth Date</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.birthDate" 
+              [readonly]="!isEditMode"
+              type="date"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Gender -->
+          <ion-item>
+            <ion-label position="stacked">Gender</ion-label>
+            <ion-select 
+              [(ngModel)]="editProfile.gender" 
+              [disabled]="!isEditMode"
+              placeholder="Select gender"
+            >
+              <ion-select-option value="Male">Male</ion-select-option>
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="Other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Academic Information Section -->
+    <ion-card class="info-section-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="school"></ion-icon>
+          Academic Information
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list lines="none">
+          <!-- Student ID -->
+          <ion-item>
+            <ion-label position="stacked">Student ID</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.studentId" 
+              [readonly]="true"
+              disabled
+            ></ion-input>
+          </ion-item>
+
+          <!-- Course -->
+          <ion-item>
+            <ion-label position="stacked">Course</ion-label>
+            <ion-select 
+              [(ngModel)]="editProfile.course" 
+              [disabled]="!isEditMode"
+              placeholder="Select course"
+            >
+              <ion-select-option value="Bachelor of Science in Information Technology">BS Information Technology</ion-select-option>
+              <ion-select-option value="Bachelor of Science in Computer Science">BS Computer Science</ion-select-option>
+              <ion-select-option value="Bachelor of Science in Education">BS Education</ion-select-option>
+              <ion-select-option value="Bachelor of Science in Business Administration">BS Business Administration</ion-select-option>
+              <ion-select-option value="Bachelor of Science in Engineering">BS Engineering</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Year Level -->
+          <ion-item>
+            <ion-label position="stacked">Year Level</ion-label>
+            <ion-select 
+              [(ngModel)]="editProfile.yearLevel" 
+              [disabled]="!isEditMode"
+              placeholder="Select year level"
+            >
+              <ion-select-option value="1st Year">1st Year</ion-select-option>
+              <ion-select-option value="2nd Year">2nd Year</ion-select-option>
+              <ion-select-option value="3rd Year">3rd Year</ion-select-option>
+              <ion-select-option value="4th Year">4th Year</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Section -->
+          <ion-item>
+            <ion-label position="stacked">Section</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.section" 
+              [readonly]="!isEditMode"
+              placeholder="Enter section"
+            ></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Address Information Section -->
+    <ion-card class="info-section-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location"></ion-icon>
+          Address Information
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list lines="none">
+          <!-- Address -->
+          <ion-item>
+            <ion-label position="stacked">Street Address</ion-label>
+            <ion-textarea 
+              [(ngModel)]="editProfile.address" 
+              [readonly]="!isEditMode"
+              placeholder="Enter street address"
+              rows="2"
+            ></ion-textarea>
+          </ion-item>
+
+          <!-- City -->
+          <ion-item>
+            <ion-label position="stacked">City</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.city" 
+              [readonly]="!isEditMode"
+              placeholder="Enter city"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Zip Code -->
+          <ion-item>
+            <ion-label position="stacked">Zip Code</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.zipCode" 
+              [readonly]="!isEditMode"
+              placeholder="Enter zip code"
+            ></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Emergency Contact Section -->
+    <ion-card class="info-section-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="warning"></ion-icon>
+          Emergency Contact
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-list lines="none">
+          <!-- Emergency Contact Name -->
+          <ion-item>
+            <ion-label position="stacked">Contact Name</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.emergencyContact" 
+              [readonly]="!isEditMode"
+              placeholder="Enter emergency contact name"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Emergency Contact Phone -->
+          <ion-item>
+            <ion-label position="stacked">Contact Phone</ion-label>
+            <ion-input 
+              [(ngModel)]="editProfile.emergencyPhone" 
+              [readonly]="!isEditMode"
+              type="tel"
+              placeholder="Enter emergency contact phone"
+            ></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Last Updated Info -->
+    <div class="last-updated" *ngIf="userProfile.lastUpdated">
+      <ion-icon name="time-outline"></ion-icon>
+      Last updated: {{ userProfile.lastUpdated | date:'medium' }}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons" *ngIf="!isEditMode">
+      <ion-button expand="block" (click)="toggleEditMode()" color="primary">
+        <ion-icon slot="start" name="create"></ion-icon>
+        Edit Profile
+      </ion-button>
+      
+      <ion-button expand="block" fill="outline" (click)="resetProfile()" color="warning">
+        <ion-icon slot="start" name="refresh"></ion-icon>
+        Reset to Default
+      </ion-button>
+    </div>
+
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="!userProfile">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Loading profile...</p>
+  </div>
+
 </ion-content>
