@@ -1,18 +1,15 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
     <ion-title>Admin Settings</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleEditMode()" *ngIf="!isEditMode">
+      <ion-button (click)="toggleEditMode()" *ngIf="!isEditMode" color="primary">
         <ion-icon slot="icon-only" name="create-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="saveSettings()" *ngIf="isEditMode" color="success">
-        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="cancelEdit()" *ngIf="isEditMode" color="danger">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -181,10 +178,12 @@
           
           <ion-item>
             <ion-label position="stacked">Theme</ion-label>
-            <ion-select 
-              [(ngModel)]="adminSettings.theme" 
+            <ion-select
+              [ngModel]="adminSettings.theme"
+              (ngModelChange)="onThemeChange($event)"
               [disabled]="!isEditMode"
               placeholder="Select theme"
+              interface="popover"
             >
               <ion-select-option value="light">Light</ion-select-option>
               <ion-select-option value="dark">Dark</ion-select-option>

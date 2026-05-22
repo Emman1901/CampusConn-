@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 // Import the Service and Interface
 import { TourService, TourRequest } from '../services/tour.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { TourService, TourRequest } from '../services/tour.service';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   // Form Data (pre-filled as in the image)
   fullName: string = 'Juan Dela Cruz';
   emailAddress: string = 'juan.delacruz@example.com'; 
@@ -20,14 +22,29 @@ export class HomePage implements OnInit {
   // Available Time Slots for the dropdown
   timeSlots: string[] = ['9:00 AM', '10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM'];
 
+  resolvedTheme: 'light' | 'dark' = 'light';
+  private themeSub?: Subscription;
+
   constructor(
     // Inject the service and utility components
     private tourService: TourService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private themeService: ThemeService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.resolvedTheme = this.themeService.getResolved();
+    this.themeSub = this.themeService.resolved$.subscribe((r) => (this.resolvedTheme = r));
+  }
+
+  ngOnDestroy() {
+    this.themeSub?.unsubscribe();
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
+  }
 
   /**
    * Handles the tour request submission, validates data, and sends it to Firestore.

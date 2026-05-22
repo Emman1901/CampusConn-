@@ -3,24 +3,44 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>CampusConn — Mindoro State University</title>
 
   <base href="/" />
 
+  <meta name="description" content="CampusConn is the official MinSU Campus Connect+ companion: book tours, navigate the campus, view announcements and stay connected." />
+  <meta name="theme-color" content="#5a48a4" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f1117" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="CampusConn — Mindoro State University" />
+  <meta property="og:description" content="Your MinSU campus companion." />
+  <meta property="og:type" content="website" />
+
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
 
-  <!-- add to homescreen for ios -->
+  <!-- iOS PWA -->
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="CampusConn" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </head>
 
 <body>
   <app-root></app-root>
+  <noscript>
+    <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 32px; text-align: center; color: #1a1c24;">
+      <h1 style="margin:0 0 8px">CampusConn</h1>
+      <p style="margin:0;color:#5a5f6e">Please enable JavaScript to use this app.</p>
+    </div>
+  </noscript>
 </body>
 
 </html>

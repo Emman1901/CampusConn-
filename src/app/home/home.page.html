@@ -1,117 +1,129 @@
 <ion-content [fullscreen]="true" class="welcome-page">
-  <!-- 1. Background and Header Section -->
-  <div class="welcome-background">
-    <!-- Overlay for better text readability -->
-    <div class="background-overlay"></div>
 
-    <!-- Log In Button -->
-    <ion-button routerLink="/login" class="login-button" fill="clear">
-      <ion-icon slot="start" name="log-in-outline"></ion-icon>
-      Log In
-    </ion-button>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
 
-    <!-- Welcome Text -->
-    <div class="welcome-text-container">
-      <h1>Welcome to Mindoro State University</h1>
-      <p>Discover Your Future. Explore Our Campus.</p>
+    <nav class="hero-nav cc-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="assets/images/LogoMinSU.jpg" alt="MinSU Logo" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CampusConn</span>
+          <span class="brand-sub">Mindoro State University</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button
+          type="button"
+          class="theme-pill"
+          (click)="toggleTheme()"
+          [attr.aria-label]="resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          title="Toggle theme"
+        >
+          <ion-icon [name]="resolvedTheme === 'dark' ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+        </button>
+
+        <ion-button routerLink="/login" class="login-pill" fill="clear">
+          <ion-icon slot="start" name="log-in-outline"></ion-icon>
+          Sign in
+        </ion-button>
+      </div>
+    </nav>
+
+    <div class="hero-content cc-container cc-animate-in">
+      <span class="eyebrow">
+        <span class="dot"></span> Welcome to MinSU
+      </span>
+      <h1>Discover your future.<br />Explore our campus.</h1>
+      <p>Book a guided campus tour, navigate facilities and get connected — all from one place.</p>
+      <div class="hero-stats">
+        <div class="stat"><strong>50+</strong><span>Programs</span></div>
+        <div class="stat"><strong>10k+</strong><span>Students</span></div>
+        <div class="stat"><strong>25</strong><span>Years</span></div>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <!-- 2. Campus Tour Booking Section -->
-  <div class="booking-card">
-    <div class="ion-padding">
-      <h2 class="ion-no-margin">Book a Campus Tour</h2>
-      <p class="subtitle">Plan your visit in a few easy steps.</p>
-
-      <!-- Your Information -->
-      <div class="info-card">
-        <ion-item lines="none" class="card-header-item">
-          <ion-icon slot="start" name="person-circle-outline"></ion-icon>
-          <div>
-            <h3 class="ion-no-margin">Your Information</h3>
-            <p class="step-label">Step 1 of 2</p>
-          </div>
-        </ion-item>
-
-        <ion-list lines="none" class="form-list">
-          <ion-label position="stacked">Full Name</ion-label>
-          <ion-input
-            [(ngModel)]="fullName"
-            placeholder="Juan Dela Cruz"
-            class="custom-input"
-          ></ion-input>
-
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input
-            [(ngModel)]="emailAddress"
-            placeholder="juan.delacruz@example.com"
-            type="email"
-            class="custom-input"
-          ></ion-input>
-        </ion-list>
+  <!-- Booking sheet -->
+  <section class="booking-sheet cc-animate-in">
+    <div class="sheet-handle"></div>
+    <div class="cc-container">
+      <div class="sheet-head">
+        <div>
+          <h2>Book a campus tour</h2>
+          <p>Plan your visit in just two quick steps.</p>
+        </div>
+        <ion-icon name="calendar-clear-outline" class="sheet-icon"></ion-icon>
       </div>
 
-      <!-- Tour Details -->
-      <div class="info-card">
-        <ion-item lines="none" class="card-header-item">
-          <ion-icon slot="start" name="calendar-outline"></ion-icon>
-          <div>
-            <h3 class="ion-no-margin">Tour Details</h3>
-            <p class="step-label">Step 2 of 2</p>
-          </div>
+      <!-- Step 1 -->
+      <article class="step-card">
+        <header class="step-head">
+          <span class="step-pill">Step 1</span>
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <h3>Your information</h3>
+        </header>
+
+        <label class="cc-field-label" for="home-name">Full name</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input id="home-name" [(ngModel)]="fullName" placeholder="Juan Dela Cruz"></ion-input>
         </ion-item>
 
-        <ion-list lines="none" class="form-list">
-          
-          <ion-label position="stacked">Preferred Tour Date</ion-label>
-          <!-- FIX: SIMPLIFIED ion-input with type="date" -->
-          <ion-item lines="none" class="custom-input date-input-simple">
-            <!-- Icon on the left -->
-            <ion-icon slot="start" name="calendar-outline"></ion-icon>
-            
-            <!-- Native date picker input -->
-            <ion-input
-              type="date"
-              placeholder="mm/dd/yyyy"
-              [(ngModel)]="tourDate"
-            ></ion-input>
-          </ion-item>
-          <!-- END FIX -->
+        <label class="cc-field-label" for="home-email">Email address</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input id="home-email" [(ngModel)]="emailAddress" type="email" placeholder="juan.delacruz@example.com"></ion-input>
+        </ion-item>
+      </article>
 
-          <ion-label position="stacked">Time Slot</ion-label>
-          <ion-select
-            [(ngModel)]="timeSlot"
-            interface="popover"
-            class="custom-input"
-            placeholder="9:00 AM"
-            justify="start"
-          >
-            <!-- Custom presentation to show icon/value -->
-            <ion-select-option *ngFor="let slot of timeSlots" [value]="slot">
-              {{ slot }}
-            </ion-select-option>
-          </ion-select>
+      <!-- Step 2 -->
+      <article class="step-card">
+        <header class="step-head">
+          <span class="step-pill">Step 2</span>
+          <ion-icon name="calendar-outline"></ion-icon>
+          <h3>Tour details</h3>
+        </header>
 
-          <ion-label position="stacked">No. of Guests</ion-label>
-          <ion-input
-            [(ngModel)]="numberOfGuests"
-            type="number"
-            min="1"
-            placeholder="1"
-            class="custom-input"
-          ></ion-input>
-        </ion-list>
-      </div>
+        <label class="cc-field-label" for="home-date">Preferred date</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-input id="home-date" type="date" [(ngModel)]="tourDate"></ion-input>
+        </ion-item>
 
-      <!-- Request Button -->
-      <ion-button
-        expand="block"
-        size="large"
-        class="request-tour-button"
-        (click)="requestTour()"
-      >
-        Request a Tour
+        <div class="grid-2">
+          <div>
+            <label class="cc-field-label" for="home-time">Time slot</label>
+            <ion-item class="cc-field" lines="none">
+              <ion-icon name="time-outline" slot="start"></ion-icon>
+              <ion-select [(ngModel)]="timeSlot" interface="popover" placeholder="Pick a time" justify="start">
+                <ion-select-option *ngFor="let slot of timeSlots" [value]="slot">{{ slot }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div>
+            <label class="cc-field-label" for="home-guests">Guests</label>
+            <ion-item class="cc-field" lines="none">
+              <ion-icon name="people-outline" slot="start"></ion-icon>
+              <ion-input id="home-guests" type="number" min="1" [(ngModel)]="numberOfGuests"></ion-input>
+            </ion-item>
+          </div>
+        </div>
+      </article>
+
+      <ion-button expand="block" class="cc-btn-primary submit-btn" (click)="requestTour()">
+        Request a tour
+        <ion-icon name="paper-plane-outline" slot="end"></ion-icon>
       </ion-button>
+
+      <p class="login-prompt">
+        Already have an account?
+        <a routerLink="/login">Sign in instead</a>
+      </p>
     </div>
-  </div>
+  </section>
+
 </ion-content>

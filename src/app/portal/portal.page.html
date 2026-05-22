@@ -1,64 +1,106 @@
-<ion-menu contentId="main-content" type="overlay">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Campus Connect+</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+<ion-menu contentId="main-content" type="overlay" class="cc-menu">
   <ion-content>
-    <!-- User Profile Section -->
-    <div class="user-profile-section">
-      <div class="user-avatar">
-        <img src="assets/images/reading-book.png" alt="User Avatar">
+    <div class="menu-hero">
+      <div class="menu-brand">
+        <div class="logo-badge">
+          <img src="assets/images/LogoMinSU.jpg" alt="MinSU Logo" />
+        </div>
+        <div>
+          <span class="brand-name">CampusConn</span>
+          <span class="brand-sub">Mindoro State University</span>
+        </div>
       </div>
-      <h2 class="user-name">Hello, Juan</h2>
-      <p class="user-role">Student</p>
+
+      <div class="user-card">
+        <div class="user-avatar">
+          <img src="assets/images/reading-book.png" alt="User Avatar" />
+        </div>
+        <div class="user-meta">
+          <span class="hello">Hello,</span>
+          <strong>Juan</strong>
+          <span class="role">Student · BSIT 3-A</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Navigation Menu -->
-    <ion-list lines="none">
+    <ion-list lines="none" class="menu-nav">
       <ion-menu-toggle auto-hide="false">
-        
-        <ion-item button routerLink="/portal/dashboard" routerLinkActive="active-menu-item" [routerLinkActiveOptions]="{exact: false}">
-          <ion-icon slot="start" name="home"></ion-icon>
+        <ion-item button routerLink="/portal/dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: false}">
+          <ion-icon slot="start" name="grid-outline"></ion-icon>
           <ion-label>Dashboard</ion-label>
         </ion-item>
 
-        <ion-item button routerLink="/portal/maps" routerLinkActive="active-menu-item">
+        <ion-item button routerLink="/portal/maps" routerLinkActive="is-active">
           <ion-icon slot="start" name="map-outline"></ion-icon>
-          <ion-label>Maps</ion-label>
+          <ion-label>Campus Map</ion-label>
         </ion-item>
 
-        <ion-item button routerLink="/portal/announcements" routerLinkActive="active-menu-item">
+        <ion-item button routerLink="/portal/announcements" routerLinkActive="is-active">
           <ion-icon slot="start" name="megaphone-outline"></ion-icon>
           <ion-label>Announcements</ion-label>
         </ion-item>
 
-        <ion-item button routerLink="/portal/profile" routerLinkActive="active-menu-item">
+        <ion-item button routerLink="/portal/profile" routerLinkActive="is-active">
           <ion-icon slot="start" name="person-outline"></ion-icon>
-          <ion-label>Profile</ion-label>
+          <ion-label>My Profile</ion-label>
         </ion-item>
 
-        <ion-item lines="full" class="menu-divider"></ion-item>
+        <li class="menu-divider" aria-hidden="true"></li>
+
+        <!-- Theme picker -->
+        <ion-item lines="none" class="theme-item" detail="false">
+          <ion-icon slot="start" [name]="resolvedTheme === 'dark' ? 'moon-outline' : 'sunny-outline'"></ion-icon>
+          <ion-label>Appearance</ion-label>
+        </ion-item>
+        <li class="theme-segment-row" aria-hidden="true">
+          <div class="theme-segment" role="group" aria-label="Theme">
+            <button
+              type="button"
+              class="theme-option"
+              [class.is-active]="themeMode === 'light'"
+              (click)="setTheme('light')"
+              aria-label="Light theme"
+            >
+              <ion-icon name="sunny-outline"></ion-icon>
+              <span>Light</span>
+            </button>
+            <button
+              type="button"
+              class="theme-option"
+              [class.is-active]="themeMode === 'dark'"
+              (click)="setTheme('dark')"
+              aria-label="Dark theme"
+            >
+              <ion-icon name="moon-outline"></ion-icon>
+              <span>Dark</span>
+            </button>
+            <button
+              type="button"
+              class="theme-option"
+              [class.is-active]="themeMode === 'auto'"
+              (click)="setTheme('auto')"
+              aria-label="Auto theme"
+            >
+              <ion-icon name="contrast-outline"></ion-icon>
+              <span>Auto</span>
+            </button>
+          </div>
+        </li>
 
         <ion-item button routerLink="/login" class="logout-item">
-          <ion-icon slot="start" name="log-out-outline" color="danger"></ion-icon>
-          <ion-label color="danger">Logout</ion-label>
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          <ion-label>Sign out</ion-label>
         </ion-item>
-
       </ion-menu-toggle>
     </ion-list>
   </ion-content>
 
   <ion-footer class="menu-footer">
-    <ion-toolbar>
-      <div class="footer-content">
-        <p>MinSU Campus Connect+</p>
-        <p class="version">v1.0.0</p>
-      </div>
-    </ion-toolbar>
+    <div class="footer-content">
+      <span>MinSU Campus Connect+</span>
+      <span class="version">v1.0.0</span>
+    </div>
   </ion-footer>
 </ion-menu>
 
-<!-- Main Content Area -->
 <ion-router-outlet id="main-content"></ion-router-outlet>

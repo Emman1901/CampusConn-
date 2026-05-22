@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { ThemeMode, ThemeService } from '../../services/theme.service';
 
 interface AdminSettings {
   fullName: string;
@@ -11,7 +12,7 @@ interface AdminSettings {
   emailNotifications: boolean;
   autoApproveRegistrations: boolean;
   showAdminBadge: boolean;
-  theme: string;
+  theme: ThemeMode;
   itemsPerPage: number;
   twoFactorAuth: boolean;
   lastUpdated: Date;
@@ -31,7 +32,8 @@ export class SettingsPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private themeService: ThemeService
   ) {
     console.log('⚙️ Admin Settings Page loaded');
   }
@@ -58,7 +60,7 @@ export class SettingsPage implements OnInit {
       emailNotifications: true,
       autoApproveRegistrations: false,
       showAdminBadge: true,
-      theme: 'light',
+      theme: this.themeService.getMode(),
       itemsPerPage: 25,
       twoFactorAuth: false,
       lastUpdated: new Date()
@@ -66,6 +68,14 @@ export class SettingsPage implements OnInit {
 
     this.originalSettings = { ...this.adminSettings };
     console.log('✅ Admin settings loaded');
+  }
+
+  /**
+   * Apply the selected theme immediately (live preview).
+   */
+  onThemeChange(value: ThemeMode): void {
+    this.adminSettings.theme = value;
+    this.themeService.setMode(value);
   }
 
   /**
@@ -240,6 +250,8 @@ export class SettingsPage implements OnInit {
           text: 'Reset',
           role: 'destructive',
           handler: () => {
+            // Reset theme back to light (the documented default)
+            this.themeService.setMode('light');
             this.loadSettings(); // Reload default settings
             this.showToast('✅ Settings reset to default', 'success');
           }

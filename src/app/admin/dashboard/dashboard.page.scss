@@ -1,124 +1,191 @@
-/* --- Global Dashboard Styles --- */
-:host {
-  ion-content.admin-dashboard-content {
-    --background: #f4f5f8; // Light grey background for the content area
+:host { ion-content.admin-dashboard { --background: var(--cc-surface-1); } }
+
+.content { padding: 12px 0 60px; }
+
+/* ============================================================================
+   Banner
+   ============================================================================ */
+.admin-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: var(--cc-radius-xl);
+  background: var(--cc-gradient-hero);
+  color: #fff;
+  box-shadow: var(--cc-shadow-brand);
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -40% -30% auto auto;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
   }
 
-  ion-header.admin-header {
-    ion-toolbar {
-      --background: #ffffff;
-      --color: #1e2023;
-      --border-color: #e0e0e0;
-    }
-    &::after {
-      content: none; // Removes the box-shadow from the header toolbar
-    }
+  .banner-text { position: relative; z-index: 1; flex: 1; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.16);
+    padding: 4px 10px;
+    border-radius: var(--cc-radius-pill);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+
+    ion-icon { font-size: 0.95rem; }
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  p { margin: 0; color: rgba(255, 255, 255, 0.85); font-size: 0.93rem; }
+
+  .banner-cta {
+    --background: rgba(255, 255, 255, 0.95);
+    --background-hover: #fff;
+    --color: var(--cc-brand-700);
+    --border-radius: var(--cc-radius-md);
+    font-weight: 700;
+    height: 42px;
+    flex-shrink: 0;
+    z-index: 1;
+
+    @media (max-width: 480px) { display: none; }
   }
 }
 
-/* --- Section Styling --- */
-.section-container {
-  padding: 0 16px 16px;
-}
-
-.section-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin: 16px 4px 12px;
-}
-
-/* --- Summary Statistics Grid --- */
+/* ============================================================================
+   Summary cards
+   ============================================================================ */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // Two columns
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  padding: 16px;
+  margin-bottom: 8px;
+
+  @media (min-width: 768px) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .summary-card {
   margin: 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background: #ffffff;
+  padding: 16px;
+  border-radius: var(--cc-radius-lg);
+  background: var(--cc-surface-3);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-sm);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: transform var(--cc-duration-base) var(--cc-ease),
+              box-shadow var(--cc-duration-base) var(--cc-ease);
 
-  ion-card-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--cc-shadow-md);
   }
 
-  .icon-container {
-    font-size: 2rem;
-    padding: 8px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .icon-bubble {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--cc-radius-md);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
 
-    &.user-icon { background-color: rgba(52, 152, 219, 0.1); color: #3498db; }
-    &.signup-icon { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; }
-    &.pending-icon { background-color: rgba(241, 196, 15, 0.1); color: #f1c40f; }
-    &.report-icon { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+    ion-icon { font-size: 1.4rem; }
+
+    &.user-icon { background: rgba(58, 134, 255, 0.12); ion-icon { color: var(--cc-info-500); } }
+    &.signup-icon { background: rgba(16, 185, 129, 0.12); ion-icon { color: var(--cc-success-500); } }
+    &.pending-icon { background: rgba(245, 158, 11, 0.12); ion-icon { color: var(--cc-warning-500); } }
+    &.post-icon { background: rgba(108, 91, 168, 0.12); ion-icon { color: var(--cc-brand-600); } }
   }
 
   .stat-details {
-    .stat-value {
-      font-size: 1.5rem;
+    flex: 1;
+    .stat-value { font-size: 1.45rem; font-weight: 800; color: var(--cc-text); line-height: 1.1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.78rem; color: var(--cc-text-muted); margin-top: 4px; }
+    .stat-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 8px;
+      font-size: 0.72rem;
       font-weight: 700;
-      color: #1e2023;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: #6c757d;
+
+      ion-icon { font-size: 0.9rem; }
+
+      &.positive { color: var(--cc-success-500); }
+      &.negative { color: var(--cc-warning-500); }
+      &.muted    { color: var(--cc-text-soft); }
     }
   }
 }
 
-/* --- Recent User Activity List --- */
+/* ============================================================================
+   Sections
+   ============================================================================ */
+.section {
+  margin-top: 22px;
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .cc-section-title { margin-top: 0; }
+  }
+}
+
 .user-list {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: var(--cc-surface-3);
+  border-radius: var(--cc-radius-lg);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-sm);
+  padding: 6px;
 
   ion-item {
+    --background: transparent;
+    --background-hover: var(--cc-surface-2);
     --padding-start: 12px;
-    h2 {
-      font-weight: 600;
-      color: #333;
-    }
-    p {
-      font-size: 0.8rem;
-      color: #888;
-    }
+    --inner-padding-end: 12px;
+    --min-height: 64px;
+    border-radius: var(--cc-radius-md);
+
     ion-avatar {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
+      img { border-radius: 50%; }
     }
+
+    h2 { font-size: 0.95rem; font-weight: 700; color: var(--cc-text); margin: 0; }
+    p  { font-size: 0.78rem; color: var(--cc-text-muted); margin: 2px 0 0; }
   }
 }
 
-.status-badge {
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 20px;
-  
-  &.active {
-    background-color: rgba(46, 204, 113, 0.15);
-    color: #27ae60;
-  }
-  &.pending {
-    background-color: rgba(241, 196, 15, 0.15);
-    color: #d35400;
-  }
-}
-
-/* --- Chart Placeholder Card --- */
+/* ============================================================================
+   Chart placeholder
+   ============================================================================ */
 .chart-card {
   margin: 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: var(--cc-radius-lg);
+  background: var(--cc-surface-3);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-sm);
 
   .chart-placeholder {
     display: flex;
@@ -126,19 +193,18 @@
     align-items: center;
     justify-content: center;
     min-height: 200px;
-    color: #b0b0b0;
+    color: var(--cc-text-soft);
+    gap: 10px;
+    padding: 20px;
+    text-align: center;
 
-    ion-icon {
-      font-size: 4rem;
-    }
-    p {
-      margin-top: 8px;
-      font-size: 0.9rem;
-    }
+    ion-icon { font-size: 3.5rem; color: var(--cc-brand-300); }
+    p { margin: 0; font-size: 0.9rem; max-width: 300px; line-height: 1.5; }
   }
 }
 
-/* --- Floating Action Button --- */
 ion-fab-button {
-  --background: #3880ff; // Ionic's primary color
+  --background: var(--cc-gradient-brand);
+  --background-hover: var(--cc-brand-700);
+  --box-shadow: var(--cc-shadow-brand);
 }

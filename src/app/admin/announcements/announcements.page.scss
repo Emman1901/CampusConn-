@@ -1,187 +1,181 @@
-ion-content {
-  --background: #f5f5f5;
-}
+:host { ion-content { --background: var(--cc-surface-1); } }
 
 .admin-announcements-container {
-  padding: 15px;
-  padding-bottom: 40px;
+  padding: 14px 16px 80px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-// Statistics Row
+/* ============================================================================
+   Stats row
+   ============================================================================ */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 
   .stat-card {
     margin: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--cc-radius-lg);
+    background: var(--cc-surface-3);
+    border: 1px solid var(--cc-border);
+    box-shadow: var(--cc-shadow-sm);
 
     ion-card-content {
-      padding: 15px;
+      padding: 14px;
 
       .stat-content {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
 
         ion-icon {
-          font-size: 2.5rem;
+          font-size: 1.6rem;
+          padding: 8px;
+          border-radius: var(--cc-radius-sm);
         }
+
+        ion-icon[color="primary"]   { background: var(--cc-brand-100); }
+        ion-icon[color="success"]   { background: rgba(16, 185, 129, 0.12); }
+        ion-icon[color="secondary"] { background: rgba(58, 134, 255, 0.12); }
 
         div {
-          h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #333;
-            margin: 0;
-          }
-
-          p {
-            font-size: 0.85rem;
-            color: #999;
-            margin: 0;
-          }
+          h3 { font-size: 1.4rem; font-weight: 800; color: var(--cc-text); margin: 0; letter-spacing: -0.02em; }
+          p  { font-size: 0.75rem; color: var(--cc-text-muted); margin: 2px 0 0; text-transform: uppercase; letter-spacing: 0.04em; }
         }
       }
     }
   }
 }
 
-// Quick Actions
+/* ============================================================================
+   Quick action
+   ============================================================================ */
 .quick-actions {
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 
   ion-button {
-    --border-radius: 12px;
+    --background: var(--cc-gradient-brand);
+    --background-hover: var(--cc-brand-700);
+    --box-shadow: var(--cc-shadow-brand-sm);
+    --border-radius: var(--cc-radius-md);
     height: 50px;
-    font-weight: 600;
-  }
-}
-
-// Announcements List
-.announcements-list {
-  .section-title {
-    font-size: 1.3rem;
     font-weight: 700;
-    color: #333;
-    margin: 0 0 15px 0;
+  }
+}
+
+/* ============================================================================
+   Announcement card
+   ============================================================================ */
+.announcements-list .section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cc-text);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.admin-announcement-card {
+  margin: 0 0 12px;
+  border-radius: var(--cc-radius-lg);
+  background: var(--cc-surface-3);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-sm);
+  transition: transform var(--cc-duration-base) var(--cc-ease),
+              box-shadow var(--cc-duration-base) var(--cc-ease),
+              opacity var(--cc-duration-base) var(--cc-ease);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--cc-shadow-md);
   }
 
-  .admin-announcement-card {
-    margin: 0 0 15px 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+  &.inactive {
+    opacity: 0.6;
+    background: var(--cc-surface-2);
+  }
 
-    &.inactive {
-      opacity: 0.6;
-      background: #f9f9f9;
-    }
+  ion-card-header {
+    padding: 16px 16px 6px;
 
-    &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
 
-    ion-card-header {
-      .card-header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 15px;
+      > div { flex: 1; min-width: 0; }
 
-        > div {
-          flex: 1;
-        }
-
-        ion-chip {
-          margin: 0 5px 8px 0;
-          height: 26px;
-          font-size: 0.8rem;
-        }
-
-        ion-card-title {
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: #333;
-          margin: 10px 0 5px 0;
-        }
-
-        ion-card-subtitle {
-          font-size: 0.85rem;
-          color: #666;
-        }
-
-        ion-toggle {
-          --handle-width: 26px;
-          --handle-height: 26px;
-        }
-      }
-    }
-
-    ion-card-content {
-      .content-preview {
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.5;
-        margin: 0 0 15px 0;
-        max-height: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      ion-chip {
+        margin: 0 6px 8px 0;
+        height: 24px;
+        font-size: 0.72rem;
+        font-weight: 600;
       }
 
-      .card-actions {
-        display: flex;
-        gap: 10px;
-        padding-top: 10px;
-        border-top: 1px solid #eee;
+      ion-card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--cc-text);
+        margin: 8px 0 4px;
+        letter-spacing: -0.01em;
+      }
 
-        ion-button {
-          flex: 1;
-          margin: 0;
-          --border-radius: 8px;
-        }
+      ion-card-subtitle {
+        font-size: 0.78rem;
+        color: var(--cc-text-muted);
+      }
+
+      ion-toggle {
+        --handle-width: 22px;
+        --handle-height: 22px;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 0 16px 16px;
+
+    .content-preview {
+      font-size: 0.9rem;
+      color: var(--cc-text-muted);
+      line-height: 1.55;
+      margin: 0 0 14px;
+      max-height: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--cc-border);
+
+      ion-button {
+        flex: 1;
+        margin: 0;
+        --border-radius: var(--cc-radius-sm);
+        font-weight: 600;
       }
     }
   }
 }
 
-// Form Alert Styling
 .announcement-form-alert {
-  .alert-wrapper {
-    border-radius: 15px;
-    max-width: 500px;
-  }
-
+  .alert-wrapper { border-radius: var(--cc-radius-xl); max-width: 520px; }
   .alert-input {
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    border-radius: var(--cc-radius-sm);
+    border: 1px solid var(--cc-border);
     padding: 10px;
     margin: 8px 0;
   }
-
-  .alert-button {
-    font-weight: 600;
-  }
+  .alert-button { font-weight: 600; }
 }
 
-// Responsive
-@media (max-width: 768px) {
-  .stats-row {
-    grid-template-columns: 1fr;
-
-    .stat-card {
-      ion-card-content .stat-content {
-        justify-content: center;
-      }
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .admin-announcements-container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
+@media (max-width: 540px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stats-row .stat-card:nth-child(3) { grid-column: 1 / -1; }
 }

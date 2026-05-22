@@ -1,9 +1,10 @@
-<ion-header class="admin-header">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Admin Dashboard
-    </ion-title>
+    <ion-title>Admin Dashboard</ion-title>
     <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
       <ion-button routerLink="/login">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -11,121 +12,122 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="admin-dashboard-content">
+<ion-content [fullscreen]="true" class="admin-dashboard">
+  <div class="cc-container content">
 
-  <!-- Summary Statistics Grid -->
-  <div class="summary-grid">
-    <!-- Card 1: Total Users -->
-    <ion-card class="summary-card">
-      <ion-card-content>
-        <div class="icon-container user-icon">
-          <ion-icon name="people-circle-outline"></ion-icon>
+    <!-- Welcome banner -->
+    <section class="admin-banner cc-animate-in">
+      <div class="banner-text">
+        <span class="eyebrow"><ion-icon name="shield-checkmark-outline"></ion-icon> Administrator</span>
+        <h1>Good day, Admin</h1>
+        <p>Quick overview of MinSU CampusConn activity.</p>
+      </div>
+      <ion-button class="banner-cta" routerLink="/admin/announcements">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        New post
+      </ion-button>
+    </section>
+
+    <!-- Summary stats -->
+    <section class="summary-grid">
+      <ion-card class="summary-card">
+        <div class="icon-bubble user-icon">
+          <ion-icon name="people-outline"></ion-icon>
         </div>
         <div class="stat-details">
           <div class="stat-value">7</div>
-          <div class="stat-label">Total Users</div>
+          <div class="stat-label">Total users</div>
+          <div class="stat-trend positive"><ion-icon name="trending-up-outline"></ion-icon> +12%</div>
         </div>
-      </ion-card-content>
-    </ion-card>
+      </ion-card>
 
-    <!-- Card 2: New Signups -->
-    <ion-card class="summary-card">
-      <ion-card-content>
-        <div class="icon-container signup-icon">
+      <ion-card class="summary-card">
+        <div class="icon-bubble signup-icon">
           <ion-icon name="person-add-outline"></ion-icon>
         </div>
         <div class="stat-details">
           <div class="stat-value">0</div>
-          <div class="stat-label">New Signups</div>
+          <div class="stat-label">New signups</div>
+          <div class="stat-trend muted"><ion-icon name="remove-outline"></ion-icon> Today</div>
         </div>
-      </ion-card-content>
-    </ion-card>
+      </ion-card>
 
-    <!-- Card 3: Pending Approvals -->
-    <ion-card class="summary-card">
-      <ion-card-content>
-        <div class="icon-container pending-icon">
+      <ion-card class="summary-card">
+        <div class="icon-bubble pending-icon">
           <ion-icon name="hourglass-outline"></ion-icon>
         </div>
         <div class="stat-details">
           <div class="stat-value">2</div>
-          <div class="stat-label">Pending Approvals</div>
+          <div class="stat-label">Pending approvals</div>
+          <div class="stat-trend negative"><ion-icon name="trending-up-outline"></ion-icon> Action needed</div>
         </div>
-      </ion-card-content>
-    </ion-card>
+      </ion-card>
 
-     <!-- Card 4: Reports -->
-     <!-- <ion-card class="summary-card">
-      <ion-card-content>
-        <div class="icon-container report-icon">
-          <ion-icon name="flag-outline"></ion-icon>
+      <ion-card class="summary-card">
+        <div class="icon-bubble post-icon">
+          <ion-icon name="megaphone-outline"></ion-icon>
         </div>
         <div class="stat-details">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Open Reports</div>
+          <div class="stat-value">12</div>
+          <div class="stat-label">Active posts</div>
+          <div class="stat-trend positive"><ion-icon name="eye-outline"></ion-icon> 2.4k views</div>
         </div>
-      </ion-card-content>
-    </ion-card> -->
+      </ion-card>
+    </section>
+
+    <!-- Recent activity -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="cc-section-title">Recent user activity</h2>
+        <ion-button fill="clear" size="small">View all</ion-button>
+      </div>
+
+      <ion-list class="user-list" lines="none">
+        <ion-item>
+          <ion-avatar slot="start"><img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="" /></ion-avatar>
+          <ion-label>
+            <h2>Maria Rodriguez</h2>
+            <p>maria.r&#64;email.com</p>
+          </ion-label>
+          <span class="cc-badge cc-badge--success" slot="end">Active</span>
+        </ion-item>
+        <ion-item>
+          <ion-avatar slot="start"><img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="" /></ion-avatar>
+          <ion-label>
+            <h2>James Smith</h2>
+            <p>james.smith&#64;email.com</p>
+          </ion-label>
+          <span class="cc-badge cc-badge--success" slot="end">Active</span>
+        </ion-item>
+        <ion-item>
+          <ion-avatar slot="start"><img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="" /></ion-avatar>
+          <ion-label>
+            <h2>Linda Johnson</h2>
+            <p>l.johnson&#64;email.com</p>
+          </ion-label>
+          <span class="cc-badge cc-badge--warning" slot="end">Pending</span>
+        </ion-item>
+      </ion-list>
+    </section>
+
+    <!-- Chart placeholder -->
+    <section class="section">
+      <h2 class="cc-section-title">User registrations</h2>
+      <ion-card class="chart-card">
+        <ion-card-content>
+          <div class="chart-placeholder">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <p>Chart data will appear once registrations are recorded.</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
   </div>
 
-  <!-- Recent Activity Section -->
-  <div class="section-container">
-    <h2 class="section-title">Recent User Activity</h2>
-    <ion-list class="user-list" [inset]="true">
-      <ion-item lines="full">
-        <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>
-          <h2>Maria Rodriguez</h2>
-          <p>maria.r@email.com</p>
-        </ion-label>
-        <div class="status-badge active" slot="end">Active</div>
-      </ion-item>
-      
-      <ion-item lines="full">
-        <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>
-          <h2>James Smith</h2>
-          <p>james.smith@email.com</p>
-        </ion-label>
-        <div class="status-badge active" slot="end">Active</div>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>
-          <h2>Linda Johnson</h2>
-          <p>l.johnson@email.com</p>
-        </ion-label>
-        <div class="status-badge pending" slot="end">Pending</div>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <!-- Chart Section Placeholder -->
-  <div class="section-container">
-    <h2 class="section-title">User Registrations</h2>
-    <ion-card class="chart-card">
-      <ion-card-content>
-        <!-- A real chart (e.g., from Chart.js) would be rendered here -->
-        <div class="chart-placeholder">
-          <ion-icon name="bar-chart-outline"></ion-icon>
-          <p>Chart Data Unavailable</p>
-        </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
-  <!-- Floating Action Button to Add New User -->
+  <!-- FAB to add a new user -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="person-add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>

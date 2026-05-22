@@ -1,101 +1,125 @@
-<ion-content [fullscreen]="true" class="register-page-content">
-  <div class="header-section ion-text-center">
-    
-    <!-- Logo/Image Section -->
-    <div class="logo-container">
-      <!-- NOTE: Replace 'assets/images/msu_logo.png' with your actual path -->
-      <img src="assets/images/LogoMinSU.jpg" alt="MSU Logo" class="app-logo">
-    </div>
-
-    <!-- Welcome Text -->
-    <h1 class="welcome-heading">Welcome, Future Student!</h1>
-    <p class="subtitle">Register to access campus navigation and services.</p>
-  </div>
-  
-  <div class="form-container">
-    
-    <!-- Registration Form -->
-    <ion-list lines="none" class="register-form">
-      
-      <!-- First Name -->
-      <ion-label position="stacked" class="input-label">First Name</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input type="text" placeholder="Enter your first name" [(ngModel)]="firstName"></ion-input>
-      </ion-item>
-      
-      <!-- Last Name -->
-      <ion-label position="stacked" class="input-label">Last Name</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input type="text" placeholder="Enter your last name" [(ngModel)]="lastName"></ion-input>
-      </ion-item>
-      
-      <!-- Student ID Number -->
-      <ion-label position="stacked" class="input-label">Student ID Number</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input type="text" placeholder="Enter your student ID" [(ngModel)]="studentId"></ion-input>
-      </ion-item>
-
-      <!-- University Email Address -->
-      <ion-label position="stacked" class="input-label">University Email Address</ion-label>
-      <ion-item class="custom-input-item email-input-item">
-        <!-- Input for the prefix -->
-        <ion-input type="email" placeholder="your-email" [(ngModel)]="universityEmail" [ngModelOptions]="{standalone: true}" class="email-prefix-input"></ion-input>
-        <!-- Static suffix text -->
-        <ion-text class="email-suffix-text">@msu.edu.ph</ion-text>
-      </ion-item>
-      
-      <!-- Password -->
-      <ion-label position="stacked" class="input-label">Password</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input [type]="passwordType" placeholder="Create a password" [(ngModel)]="password"></ion-input>
-        <ion-icon 
-          slot="end" 
-          [name]="passwordToggleIcon" 
-          (click)="togglePasswordVisibility('password')"
-          class="password-toggle"
-        ></ion-icon>
-      </ion-item>
-      
-      <!-- Confirm Password -->
-      <ion-label position="stacked" class="input-label">Confirm Password</ion-label>
-      <ion-item class="custom-input-item" [class.mismatch-border]="showMismatchError">
-        <ion-input 
-          [type]="confirmPasswordType" 
-          placeholder="Confirm your password" 
-          [(ngModel)]="confirmPassword"
-          (ionChange)="checkPasswordMatch()"
-        ></ion-input>
-        <ion-icon 
-          slot="end" 
-          [name]="passwordToggleIcon" 
-          (click)="togglePasswordVisibility('confirm')"
-          class="password-toggle"
-        ></ion-icon>
-      </ion-item>
-      
-      <!-- Password Mismatch Error -->
-      <ion-text color="danger" *ngIf="showMismatchError" class="mismatch-text">
-        Passwords do not match.
-      </ion-text>
-
-    </ion-list>
-
-    <!-- Register Button -->
-    <ion-button 
-      expand="block" 
-      size="large" 
-      class="register-button" 
-      (click)="onRegister()"
-    >
-      Register
-    </ion-button>
+<ion-content [fullscreen]="true" class="register-page">
+  <div class="aurora">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
   </div>
 
-  <!-- Sign In Link -->
-  <div class="signin-footer ion-text-center">
-    <ion-text>Already have an account? </ion-text>
-    <ion-text color="primary" class="signin-link" (click)="onSignIn()">
-      Sign In
-    </ion-text>
+  <div class="register-shell cc-animate-in">
+    <header class="register-top">
+      <ion-back-button defaultHref="/login" text="Back" class="back-link"></ion-back-button>
+    </header>
+
+    <section class="register-hero">
+      <div class="logo-badge">
+        <img src="assets/images/LogoMinSU.jpg" alt="MinSU Logo" />
+      </div>
+      <h1>Create your account</h1>
+      <p>Register to access campus navigation, announcements and more.</p>
+    </section>
+
+    <section class="register-card">
+      <form (ngSubmit)="onRegister()">
+
+        <div class="grid-2">
+          <div>
+            <label class="cc-field-label" for="reg-first">First name</label>
+            <ion-item class="cc-field" lines="none">
+              <ion-input id="reg-first" type="text" placeholder="Juan" [(ngModel)]="firstName" name="firstName"></ion-input>
+            </ion-item>
+          </div>
+          <div>
+            <label class="cc-field-label" for="reg-last">Last name</label>
+            <ion-item class="cc-field" lines="none">
+              <ion-input id="reg-last" type="text" placeholder="Dela Cruz" [(ngModel)]="lastName" name="lastName"></ion-input>
+            </ion-item>
+          </div>
+        </div>
+
+        <label class="cc-field-label" for="reg-id">Student ID</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="card-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input id="reg-id" type="text" placeholder="2021-00123" [(ngModel)]="studentId" name="studentId"></ion-input>
+        </ion-item>
+
+        <label class="cc-field-label" for="reg-email">University email</label>
+        <ion-item class="cc-field email-field" lines="none">
+          <ion-icon name="mail-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input
+            id="reg-email"
+            type="email"
+            placeholder="your-email"
+            [(ngModel)]="universityEmail"
+            [ngModelOptions]="{standalone: true}"
+            class="email-prefix-input"
+          ></ion-input>
+          <ion-text class="email-suffix" slot="end">&#64;msu.edu.ph</ion-text>
+        </ion-item>
+
+        <label class="cc-field-label" for="reg-pass">Password</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input
+            id="reg-pass"
+            [type]="passwordType"
+            placeholder="Create a strong password"
+            [(ngModel)]="password"
+            name="password"
+          ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="passwordToggleIcon"
+            (click)="togglePasswordVisibility('password')"
+            class="password-toggle"
+            role="button"
+            tabindex="0"
+          ></ion-icon>
+        </ion-item>
+
+        <label class="cc-field-label" for="reg-pass-confirm">Confirm password</label>
+        <ion-item class="cc-field" lines="none" [class.cc-field--error]="showMismatchError">
+          <ion-icon name="shield-checkmark-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input
+            id="reg-pass-confirm"
+            [type]="confirmPasswordType"
+            placeholder="Repeat your password"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            (ionChange)="checkPasswordMatch()"
+          ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="passwordToggleIcon"
+            (click)="togglePasswordVisibility('confirm')"
+            class="password-toggle"
+            role="button"
+            tabindex="0"
+          ></ion-icon>
+        </ion-item>
+
+        <p class="error-text" *ngIf="showMismatchError">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          Passwords do not match.
+        </p>
+
+        <ion-button type="submit" expand="block" class="cc-btn-primary register-cta" (click)="onRegister()">
+          Create account
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+
+        <p class="terms-line">
+          By creating an account, you agree to MinSU&apos;s <a href="#" (click)="$event.preventDefault()">terms</a>
+          &amp; <a href="#" (click)="$event.preventDefault()">privacy policy</a>.
+        </p>
+      </form>
+
+      <div class="divider"><span>or</span></div>
+
+      <p class="signin-row">
+        Already have an account?
+        <ion-text color="primary" class="signin-link" (click)="onSignIn()" role="button" tabindex="0">
+          Sign in
+        </ion-text>
+      </p>
+    </section>
   </div>
 </ion-content>

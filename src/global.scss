@@ -1,12 +1,9 @@
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Shared utilities, base typography and reusable component patterns.
+ * Page-level SCSS should consume the design tokens declared in
+ * `src/theme/variables.scss` instead of redefining colors/shadows/radii.
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -25,13 +22,323 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Class-based dark palette: dark mode is enabled by adding `ion-palette-dark`
+   (and our companion `cc-dark`) to <html>. Managed by ThemeService. */
+@import "@ionic/angular/css/palettes/dark.class.css";
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* Modern web font (graceful fallback to system stack via variables.scss) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ============================================================================
+   Base typography & body
+   ============================================================================ */
+
+html,
+body {
+  font-family: var(--ion-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+body {
+  background: var(--cc-surface-1);
+  color: var(--cc-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--cc-text);
+}
+
+/* ============================================================================
+   Toolbar polish
+   ============================================================================ */
+
+ion-header ion-toolbar {
+  --background: var(--ion-toolbar-background);
+  --border-color: transparent;
+  --min-height: 56px;
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+}
+
+ion-header.cc-toolbar-brand ion-toolbar {
+  --background: var(--cc-gradient-brand);
+  --color: #fff;
+
+  ion-title,
+  ion-back-button,
+  ion-menu-button,
+  ion-button,
+  ion-buttons ion-icon {
+    --color: #fff;
+    color: #fff;
+  }
+}
+
+ion-toolbar ion-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+}
+
+/* ============================================================================
+   Reusable component-style utilities
+   ============================================================================ */
+
+.cc-page {
+  --padding-start: var(--cc-space-4);
+  --padding-end: var(--cc-space-4);
+  --padding-top: var(--cc-space-4);
+  --padding-bottom: var(--cc-space-12);
+  --background: var(--cc-surface-1);
+}
+
+.cc-container {
+  width: 100%;
+  max-width: var(--cc-content-max);
+  margin: 0 auto;
+  padding: 0 var(--cc-space-4);
+}
+
+.cc-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cc-text);
+  margin: var(--cc-space-5) 0 var(--cc-space-3);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+}
+
+.cc-section-subtitle {
+  font-size: 0.9rem;
+  color: var(--cc-text-muted);
+  margin: 0 0 var(--cc-space-4);
+}
+
+.cc-card {
+  background: var(--cc-surface-3);
+  border-radius: var(--cc-radius-lg);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-sm);
+  padding: var(--cc-space-5);
+  transition: transform var(--cc-duration-base) var(--cc-ease),
+              box-shadow var(--cc-duration-base) var(--cc-ease),
+              border-color var(--cc-duration-base) var(--cc-ease);
+}
+
+.cc-card.cc-card--hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--cc-shadow-md);
+  border-color: var(--cc-brand-200);
+}
+
+.cc-card.cc-card--tight { padding: var(--cc-space-4); }
+.cc-card.cc-card--loose { padding: var(--cc-space-6); }
+
+.cc-divider {
+  height: 1px;
+  background: var(--cc-border);
+  margin: var(--cc-space-4) 0;
+  border: 0;
+}
+
+/* ============================================================================
+   Form fields — uniform across the app
+   ============================================================================ */
+
+.cc-field {
+  --background: var(--cc-surface-3);
+  --border-radius: var(--cc-radius-md);
+  --highlight-color-focused: var(--cc-brand-500);
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --inner-padding-end: 0;
+  border: 1px solid var(--cc-border);
+  border-radius: var(--cc-radius-md);
+  min-height: 52px;
+  margin-bottom: var(--cc-space-3);
+  transition: border-color var(--cc-duration-base) var(--cc-ease),
+              box-shadow var(--cc-duration-base) var(--cc-ease);
+
+  &:focus-within {
+    border-color: var(--cc-brand-500);
+    box-shadow: 0 0 0 4px rgba(108, 91, 168, 0.12);
+  }
+
+  &.cc-field--error {
+    border-color: var(--cc-danger-500);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.10);
+  }
+
+  ion-input,
+  ion-textarea,
+  ion-select {
+    --color: var(--cc-text);
+    --placeholder-color: var(--cc-text-soft);
+    --placeholder-opacity: 1;
+    font-size: 0.97rem;
+  }
+}
+
+.cc-field-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cc-text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: var(--cc-space-3) 0 var(--cc-space-2);
+}
+
+/* ============================================================================
+   Button polish
+   ============================================================================ */
+
+ion-button {
+  --border-radius: var(--cc-radius-md);
+  text-transform: none;
+  letter-spacing: -0.005em;
+  font-weight: 600;
+}
+
+ion-button.cc-btn-primary {
+  --background: var(--cc-gradient-brand);
+  --background-hover: var(--cc-brand-700);
+  --background-activated: var(--cc-brand-800);
+  --color: #fff;
+  --box-shadow: var(--cc-shadow-brand-sm);
+  height: 52px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: transform var(--cc-duration-fast) var(--cc-ease);
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
+ion-button.cc-btn-ghost {
+  --background: transparent;
+  --color: var(--cc-brand-600);
+  --border-color: var(--cc-border);
+  --border-style: solid;
+  --border-width: 1px;
+}
+
+/* ============================================================================
+   Status badges & chips
+   ============================================================================ */
+
+.cc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--cc-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  &.cc-badge--success { background: rgba(16, 185, 129, 0.12); color: var(--cc-success-500); }
+  &.cc-badge--warning { background: rgba(245, 158, 11, 0.12); color: var(--cc-warning-500); }
+  &.cc-badge--danger  { background: rgba(239, 68, 68, 0.12);  color: var(--cc-danger-500); }
+  &.cc-badge--info    { background: rgba(58, 134, 255, 0.12); color: var(--cc-info-500); }
+  &.cc-badge--brand   { background: rgba(108, 91, 168, 0.12); color: var(--cc-brand-600); }
+  &.cc-badge--muted   { background: var(--cc-surface-2);      color: var(--cc-text-muted); }
+}
+
+/* ============================================================================
+   Empty state
+   ============================================================================ */
+
+.cc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--cc-space-12) var(--cc-space-5);
+  color: var(--cc-text-muted);
+
+  ion-icon {
+    font-size: 3.5rem;
+    color: var(--cc-brand-300);
+    margin-bottom: var(--cc-space-4);
+    opacity: 0.85;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    color: var(--cc-text);
+    margin: 0 0 var(--cc-space-2);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+}
+
+/* ============================================================================
+   Animations
+   ============================================================================ */
+
+@keyframes cc-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cc-pop-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.cc-animate-in { animation: cc-fade-in var(--cc-duration-slow) var(--cc-ease) both; }
+
+/* ============================================================================
+   Scrollbar (desktop)
+   ============================================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--cc-border-strong);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--cc-brand-300); background-clip: padding-box; }
+}
+
+/* ============================================================================
+   Ion-content default for the app
+   ============================================================================ */
+
+ion-content {
+  --background: var(--cc-surface-1);
+}
+
+/* Prevent default Ionic safe-area collapse causing odd layouts on tabs */
+ion-tabs ion-tab-bar {
+  --border: 0;
+  border-top: 1px solid var(--cc-border);
+  padding-top: 4px;
+}
+
+/* MapLibre attribution polish — keep it small and unobtrusive */
+.maplibregl-ctrl-attrib {
+  font-size: 0.7rem;
+  border-radius: var(--cc-radius-sm) 0 0 0 !important;
+}

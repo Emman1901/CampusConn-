@@ -1,78 +1,77 @@
-<ion-header >
-  <ion-toolbar>
-    <ion-buttons class="login-header" slot="start">
-      <ion-back-button defaultHref="/home" text="Book a Tour?"></ion-back-button>
-    </ion-buttons>
-    <!-- <ion-title>Login</ion-title> -->
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="login-page">
+  <div class="aurora">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
 
-<ion-content [fullscreen]="true" class="login-page-content">
-  <div class="ion-padding ion-text-center">
-    
-    <!-- Logo/Image Section -->
-    <div class="logo-container">
-      <!-- NOTE: Replace 'assets/images/msu_logo.png' with your actual path -->
-      <img src="assets/images/LogoMinSU.jpg" alt="MSU Logo" class="app-logo">
-    </div>
+  <div class="login-shell cc-animate-in">
+    <header class="login-top">
+      <ion-back-button defaultHref="/home" text="Book a tour" class="back-link"></ion-back-button>
+    </header>
 
-    <!-- Welcome Text -->
-    <h1 class="welcome-heading">Welcome!</h1>
-    <p class="subtitle">Sign in to your account</p>
+    <section class="login-hero">
+      <div class="logo-badge">
+        <img src="assets/images/LogoMinSU.jpg" alt="MinSU Logo" />
+      </div>
+      <h1>Welcome back</h1>
+      <p>Sign in to your CampusConn account to continue.</p>
+    </section>
 
+    <section class="login-card">
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <label class="cc-field-label" for="login-username">Username or email</label>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="person-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input
+            id="login-username"
+            type="text"
+            placeholder="juan.delacruz@msu.edu.ph"
+            autocomplete="username"
+            [(ngModel)]="usernameOrEmail"
+            name="usernameOrEmail"
+          ></ion-input>
+        </ion-item>
 
-    <!-- Login Form -->
-    <ion-list lines="none" class="login-form">
-      
-      <!-- Username or Email Input -->
-      <ion-label position="stacked" class="input-label">Username or Email</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input 
-          type="text" 
-          placeholder="Enter your username or email"
-          [(ngModel)]="usernameOrEmail"
-        ></ion-input>
-      </ion-item>
-      
-      <!-- Password Input -->
-      <ion-label position="stacked" class="input-label">Password</ion-label>
-      <ion-item class="custom-input-item">
-        <ion-input 
-          [type]="passwordType" 
-          placeholder="Enter your password"
-          [(ngModel)]="passwordInput"
-        ></ion-input>
-        <!-- Password Toggle Button -->
-        <ion-icon 
-          slot="end" 
-          [name]="passwordToggleIcon" 
-          (click)="togglePasswordVisibility()"
-          class="password-toggle"
-        ></ion-icon>
-      </ion-item>
+        <div class="label-row">
+          <label class="cc-field-label" for="login-password">Password</label>
+          <ion-text class="forgot-link" (click)="onForgotPassword()" role="button" tabindex="0">Forgot?</ion-text>
+        </div>
+        <ion-item class="cc-field" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-input
+            id="login-password"
+            [type]="passwordType"
+            placeholder="Your password"
+            autocomplete="current-password"
+            [(ngModel)]="passwordInput"
+            name="passwordInput"
+          ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="passwordToggleIcon"
+            (click)="togglePasswordVisibility()"
+            class="password-toggle"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="passwordType === 'password' ? 'Show password' : 'Hide password'"
+          ></ion-icon>
+        </ion-item>
 
-      <!-- Forgot Password Link -->
-      <ion-text class="forgot-password-link" (click)="onForgotPassword()">
-        Forgot Password?
-      </ion-text>
-    </ion-list>
+        <ion-button type="submit" expand="block" class="cc-btn-primary login-cta" (click)="onLogin()">
+          Sign in
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+      </form>
 
-    <!-- Log In Button -->
-    <ion-button 
-      expand="block" 
-      size="large" 
-      class="login-button" 
-      (click)="onLogin()"
-    >
-      Log In
-    </ion-button>
+      <div class="divider"><span>or</span></div>
 
-    <!-- Sign Up Link -->
-    <div class="signup-footer">
-      <ion-text>Don't have an account? </ion-text>
-      <ion-text color="primary" class="signup-link" (click)="onSignUp()">
-        Sign Up
-      </ion-text>
-    </div>
+      <p class="signup-row">
+        New to CampusConn?
+        <ion-text color="primary" class="signup-link" (click)="onSignUp()" role="button" tabindex="0">
+          Create an account
+        </ion-text>
+      </p>
+    </section>
   </div>
 </ion-content>

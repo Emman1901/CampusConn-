@@ -1,2 +1,218 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+/* ============================================================================
+   CampusConn Design System
+   ----------------------------------------------------------------------------
+   Single source of truth for colors, typography, radii, spacing and shadows.
+   Override Ionic CSS variables here — never hard-code brand colors in pages.
+   ============================================================================ */
+
+:root {
+  /* --- Brand palette ----------------------------------------------------- */
+  --cc-brand-50:  #f3f1fb;
+  --cc-brand-100: #e2deef;
+  --cc-brand-200: #c7bfe1;
+  --cc-brand-300: #a89dd0;
+  --cc-brand-400: #8a7bbf;
+  --cc-brand-500: #6c5ba8;   /* primary */
+  --cc-brand-600: #5a48a4;
+  --cc-brand-700: #43368a;
+  --cc-brand-800: #2f2466;
+  --cc-brand-900: #1d1646;
+
+  --cc-accent-500: #8b5cf6;  /* tertiary highlight */
+  --cc-info-500:   #3a86ff;  /* informational blue */
+  --cc-success-500:#10b981;
+  --cc-warning-500:#f59e0b;
+  --cc-danger-500: #ef4444;
+
+  /* --- Brand gradients --------------------------------------------------- */
+  --cc-gradient-brand:    linear-gradient(135deg, #6c5ba8 0%, #8b5cf6 100%);
+  --cc-gradient-brand-soft: linear-gradient(135deg, #b8aee0 0%, #cfc6ec 100%);
+  --cc-gradient-hero:     linear-gradient(135deg, #43368a 0%, #6c5ba8 50%, #8b5cf6 100%);
+  --cc-gradient-info:     linear-gradient(135deg, #60a5fa 0%, #3a86ff 100%);
+  --cc-gradient-success:  linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  --cc-gradient-warning:  linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --cc-gradient-danger:   linear-gradient(135deg, #fb7185 0%, #ef4444 100%);
+
+  /* --- Surfaces ---------------------------------------------------------- */
+  --cc-surface-0: #ffffff;
+  --cc-surface-1: #f7f8fb;     /* page background */
+  --cc-surface-2: #eef0f6;     /* subtle */
+  --cc-surface-3: #ffffff;     /* card */
+  --cc-border:    #e6e8ef;
+  --cc-border-strong: #d1d5db;
+  --cc-overlay:   rgba(15, 17, 23, 0.55);
+
+  /* --- Text -------------------------------------------------------------- */
+  --cc-text:        #1a1c24;
+  --cc-text-muted:  #5a5f6e;
+  --cc-text-soft:   #8a8f9c;
+  --cc-text-invert: #ffffff;
+
+  /* --- Radii ------------------------------------------------------------- */
+  --cc-radius-xs: 6px;
+  --cc-radius-sm: 10px;
+  --cc-radius-md: 14px;
+  --cc-radius-lg: 18px;
+  --cc-radius-xl: 24px;
+  --cc-radius-2xl: 32px;
+  --cc-radius-pill: 999px;
+
+  /* --- Spacing ----------------------------------------------------------- */
+  --cc-space-1: 4px;
+  --cc-space-2: 8px;
+  --cc-space-3: 12px;
+  --cc-space-4: 16px;
+  --cc-space-5: 20px;
+  --cc-space-6: 24px;
+  --cc-space-8: 32px;
+  --cc-space-10: 40px;
+  --cc-space-12: 48px;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --cc-shadow-xs: 0 1px 2px rgba(15, 17, 23, 0.04);
+  --cc-shadow-sm: 0 2px 6px rgba(15, 17, 23, 0.06), 0 1px 2px rgba(15, 17, 23, 0.04);
+  --cc-shadow-md: 0 6px 16px rgba(15, 17, 23, 0.08), 0 2px 4px rgba(15, 17, 23, 0.04);
+  --cc-shadow-lg: 0 16px 40px rgba(15, 17, 23, 0.12), 0 4px 8px rgba(15, 17, 23, 0.05);
+  --cc-shadow-brand: 0 12px 30px rgba(108, 91, 168, 0.32);
+  --cc-shadow-brand-sm: 0 4px 14px rgba(108, 91, 168, 0.22);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --cc-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --cc-duration-fast: 150ms;
+  --cc-duration-base: 240ms;
+  --cc-duration-slow: 400ms;
+
+  /* --- Layout ------------------------------------------------------------ */
+  --cc-content-max: 1080px;
+  --cc-form-max: 480px;
+
+  /* ============================================================
+     Ionic theme overrides
+     ============================================================ */
+
+  --ion-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --ion-color-primary: var(--cc-brand-600);
+  --ion-color-primary-rgb: 90, 72, 164;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: var(--cc-brand-700);
+  --ion-color-primary-tint: var(--cc-brand-500);
+
+  --ion-color-secondary: #3a86ff;
+  --ion-color-secondary-rgb: 58, 134, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #2f6dd4;
+  --ion-color-secondary-tint: #5a99ff;
+
+  --ion-color-tertiary: #8b5cf6;
+  --ion-color-tertiary-rgb: 139, 92, 246;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #6f48d4;
+  --ion-color-tertiary-tint: #a780f7;
+
+  --ion-color-success: #10b981;
+  --ion-color-success-rgb: 16, 185, 129;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0e9b6c;
+  --ion-color-success-tint: #2ec998;
+
+  --ion-color-warning: #f59e0b;
+  --ion-color-warning-rgb: 245, 158, 11;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #d98708;
+  --ion-color-warning-tint: #f7ae33;
+
+  --ion-color-danger: #ef4444;
+  --ion-color-danger-rgb: 239, 68, 68;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #c93636;
+  --ion-color-danger-tint: #f26060;
+
+  --ion-color-light: #f7f8fb;
+  --ion-color-medium: #8a8f9c;
+  --ion-color-dark: #1a1c24;
+
+  --ion-background-color: var(--cc-surface-1);
+  --ion-background-color-rgb: 247, 248, 251;
+  --ion-text-color: var(--cc-text);
+  --ion-text-color-rgb: 26, 28, 36;
+
+  --ion-toolbar-background: rgba(255, 255, 255, 0.85);
+  --ion-toolbar-color: var(--cc-text);
+  --ion-toolbar-border-color: transparent;
+  --ion-tab-bar-background: rgba(255, 255, 255, 0.96);
+  --ion-tab-bar-color: var(--cc-text-muted);
+  --ion-tab-bar-color-selected: var(--cc-brand-600);
+
+  --ion-card-background: var(--cc-surface-3);
+  --ion-card-color: var(--cc-text);
+
+  --ion-item-background: transparent;
+}
+
+/* ============================================================================
+   Dark palette
+   ----------------------------------------------------------------------------
+   Class-based, user-controlled. The ThemeService toggles `cc-dark` on <html>
+   (and `ion-palette-dark` for Ionic). The :root.cc-dark selector below
+   completely overrides all light tokens.
+
+   Light theme is the default. There is intentionally no `prefers-color-scheme`
+   media query — the OS preference is consulted ONLY when the user picks
+   "Auto", and the service then applies the class itself.
+   ============================================================================ */
+:root.cc-dark {
+  --cc-surface-0: #0f1117;
+  --cc-surface-1: #14161f;
+  --cc-surface-2: #1a1d28;
+  --cc-surface-3: #1e2230;
+  --cc-border:    #2a2d38;
+  --cc-border-strong: #3a3e4d;
+
+  --cc-text:        #f1f3f7;
+  --cc-text-muted:  #a4a9b8;
+  --cc-text-soft:   #6f7484;
+
+  --cc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --cc-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.32);
+  --cc-shadow-md: 0 6px 16px rgba(0, 0, 0, 0.40);
+  --cc-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.50);
+
+  --ion-background-color: #0f1117;
+  --ion-background-color-rgb: 15, 17, 23;
+  --ion-text-color: #f1f3f7;
+  --ion-text-color-rgb: 241, 243, 247;
+
+  --ion-toolbar-background: rgba(20, 22, 31, 0.85);
+  --ion-toolbar-color: #f1f3f7;
+  --ion-tab-bar-background: rgba(20, 22, 31, 0.96);
+  --ion-tab-bar-color: #a4a9b8;
+  --ion-tab-bar-color-selected: var(--cc-brand-300);
+
+  --ion-card-background: var(--cc-surface-3);
+  --ion-card-color: #f1f3f7;
+
+  --ion-color-primary: var(--cc-brand-400);
+  --ion-color-primary-rgb: 138, 123, 191;
+  --ion-color-primary-shade: var(--cc-brand-500);
+  --ion-color-primary-tint: var(--cc-brand-300);
+}
+
+/* Smooth transition between themes */
+:root,
+:root.cc-dark {
+  color-scheme: light dark;
+}
+
+html, body {
+  transition:
+    background-color var(--cc-duration-base) var(--cc-ease),
+    color var(--cc-duration-base) var(--cc-ease);
+}

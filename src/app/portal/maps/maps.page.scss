@@ -1,294 +1,253 @@
-ion-content {
-  --background: #f5f5f5;
-}
+:host { ion-content { --background: var(--cc-surface-2); } }
 
-// Map Container - CRITICAL: Must have explicit dimensions
+/* Map container - explicit dimensions required for MapLibre */
 .map-container {
   width: 100%;
   height: 100%;
-  min-height: 100vh; // Ensure minimum height
+  min-height: 100vh;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   z-index: 1;
-  background: #e5e3df; // OSM default background color
+  background: #e5e3df;
 }
 
-// Location Status Bar
+/* ============================================================================
+   Floating status bar
+   ============================================================================ */
 .location-status {
   position: absolute;
-  top: 10px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 8px 16px;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.96);
+  padding: 8px 14px;
+  border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-md);
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
-  color: #666;
-  transition: all 0.3s ease;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--cc-text-muted);
+  backdrop-filter: blur(10px);
+  transition: all var(--cc-duration-base) var(--cc-ease);
 
-  ion-icon {
-    font-size: 1.2rem;
-    color: #999;
-  }
+  ion-icon { font-size: 1.1rem; color: var(--cc-text-soft); }
 
   &.active {
-    background: rgba(76, 175, 80, 0.95);
+    background: var(--cc-success-500);
+    border-color: var(--cc-success-500);
     color: #fff;
 
     ion-icon {
       color: #fff;
-      animation: pulse 2s infinite;
+      animation: cc-pulse 1.6s ease-in-out infinite;
     }
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
+/* ============================================================================
+   User location card
+   ============================================================================ */
+.user-location-card {
+  position: absolute;
+  top: 70px;
+  right: 12px;
+  z-index: 10;
+  width: 220px;
+  margin: 0;
+  border-radius: var(--cc-radius-md);
+  background: var(--cc-surface-3);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-md);
+
+  ion-card-content { padding: 12px; }
+
+  .location-info {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+
+    ion-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      color: var(--cc-brand-600);
+      background: var(--cc-brand-100);
+      padding: 6px;
+      border-radius: var(--cc-radius-sm);
+    }
+
+    .info-text {
+      flex: 1;
+
+      h4 { font-size: 0.85rem; font-weight: 700; color: var(--cc-text); margin: 0 0 6px; }
+
+      p {
+        margin: 1px 0;
+        font-size: 0.75rem;
+        color: var(--cc-text-muted);
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+      }
+
+      p.accuracy { color: var(--cc-text-soft); margin-top: 4px; }
+    }
   }
 }
 
-// Campus Locations Panel
+/* ============================================================================
+   Bottom locations panel
+   ============================================================================ */
 .locations-panel {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  background: #fff;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  background: var(--cc-surface-3);
+  border-radius: var(--cc-radius-2xl) var(--cc-radius-2xl) 0 0;
+  box-shadow: 0 -8px 24px rgba(15, 17, 23, 0.18);
   max-height: 60vh;
-  transition: transform 0.3s ease;
-  transform: translateY(calc(100% - 60px));
+  transition: transform var(--cc-duration-slow) var(--cc-ease);
+  transform: translateY(calc(100% - 64px));
 
-  &.expanded {
-    transform: translateY(0);
+  &.expanded { transform: translateY(0); }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 4px;
+    background: var(--cc-border-strong);
+    border-radius: 999px;
+    margin: 8px auto 0;
   }
 
   .panel-header {
-    padding: 15px 20px;
+    padding: 8px 18px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--cc-border);
 
     h3 {
       margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cc-text);
     }
 
     ion-icon {
-      font-size: 1.5rem;
-      color: #666;
-      transition: transform 0.3s ease;
+      font-size: 1.4rem;
+      color: var(--cc-text-soft);
+      transition: transform var(--cc-duration-base) var(--cc-ease);
     }
   }
 
   .panel-content {
     overflow-y: auto;
-    max-height: calc(60vh - 60px);
+    max-height: calc(60vh - 70px);
 
     ion-list {
       background: transparent;
-      padding: 10px;
+      padding: 8px 10px;
     }
 
     .location-item {
       --background: transparent;
-      margin: 5px 0;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-
-      &:hover {
-        --background: rgba(0, 0, 0, 0.03);
-      }
+      --background-hover: var(--cc-surface-2);
+      --padding-start: 12px;
+      --inner-padding-end: 12px;
+      --min-height: 60px;
+      margin: 4px 0;
+      border-radius: var(--cc-radius-md);
 
       ion-icon[slot="start"] {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         margin-right: 12px;
       }
 
       ion-icon[slot="end"] {
-        color: #999;
-        font-size: 1.3rem;
+        color: var(--cc-text-soft);
+        font-size: 1.1rem;
       }
 
       ion-label {
-        h3 {
-          font-size: 1rem;
-          font-weight: 600;
-          color: #333;
-          margin: 0 0 4px 0;
-        }
-
-        p {
-          font-size: 0.85rem;
-          color: #666;
-          margin: 0;
-        }
+        h3 { font-size: 0.95rem; font-weight: 700; color: var(--cc-text); margin: 0 0 3px; }
+        p { font-size: 0.8rem; color: var(--cc-text-muted); margin: 0; }
       }
     }
   }
 }
 
-// User Location Card
-.user-location-card {
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  z-index: 10;
-  width: 200px;
-  margin: 0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-
-  ion-card-content {
-    padding: 12px;
-  }
-
-  .location-info {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-
-    ion-icon {
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-
-    .info-text {
-      flex: 1;
-
-      h4 {
-        margin: 0 0 8px 0;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #333;
-      }
-
-      p {
-        margin: 2px 0;
-        font-size: 0.8rem;
-        color: #666;
-        font-family: 'Courier New', monospace;
-
-        &.accuracy {
-          color: #999;
-          margin-top: 6px;
-        }
-      }
-    }
-  }
-}
-
-// Loading Overlay
+/* ============================================================================
+   Loading + error
+   ============================================================================ */
 .loading-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  inset: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 14px;
 
-  ion-spinner {
-    width: 50px;
-    height: 50px;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #666;
-    margin: 0;
-  }
+  ion-spinner { width: 44px; height: 44px; }
+  p { font-size: 0.95rem; color: var(--cc-text-muted); margin: 0; }
 }
 
-// Error Card
 .error-card {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  width: 90%;
-  max-width: 350px;
+  width: 92%;
+  max-width: 360px;
   margin: 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: var(--cc-radius-xl);
+  background: var(--cc-surface-3);
+  border: 1px solid var(--cc-border);
+  box-shadow: var(--cc-shadow-lg);
 
   ion-card-content {
     text-align: center;
-    padding: 20px;
+    padding: 26px 20px;
 
     ion-icon {
-      font-size: 3rem;
-      margin-bottom: 15px;
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      color: var(--cc-danger-500);
+      background: rgba(239, 68, 68, 0.12);
+      padding: 12px;
+      border-radius: 50%;
     }
 
     p {
-      margin: 0 0 15px 0;
-      font-size: 0.95rem;
-      color: #666;
+      margin: 0 0 14px;
+      font-size: 0.93rem;
+      color: var(--cc-text-muted);
       line-height: 1.5;
     }
 
-    ion-button {
-      margin-top: 10px;
-    }
+    ion-button { --border-radius: var(--cc-radius-md); }
   }
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .user-location-card {
     width: 180px;
-    top: 50px;
-    right: 5px;
-
-    ion-card-content {
-      padding: 10px;
-    }
-
-    .location-info {
-      gap: 8px;
-
-      ion-icon {
-        font-size: 1.5rem;
-      }
-
-      .info-text {
-        h4 {
-          font-size: 0.85rem;
-        }
-
-        p {
-          font-size: 0.75rem;
-        }
-      }
-    }
+    top: 60px;
+    right: 8px;
+    ion-card-content { padding: 10px; }
   }
-
   .locations-panel {
-    max-height: 50vh;
-
-    .panel-content {
-      max-height: calc(50vh - 60px);
-    }
+    max-height: 55vh;
+    .panel-content { max-height: calc(55vh - 70px); }
   }
 }
